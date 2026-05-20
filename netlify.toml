@@ -11,6 +11,5 @@
   node_bundler = "esbuild"
   directory = "netlify/functions"
 
-[[functions]]
-  name = "scheduler"
+[functions.scheduler]
   schedule = "0 8 * * *"
