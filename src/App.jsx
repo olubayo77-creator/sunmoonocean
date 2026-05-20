@@ -3,7 +3,14 @@ import { products } from './data/products'
 import './App.css'
 
 function App() {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('smo-cart')) || []
+    } catch {
+      return []
+    }
+  })
+  const [cartOpen, setCartOpen] = useState(false)
   const [chatMessages, setChatMessages] = useState([
     { role: 'assistant', content: "Hi there! 🧸 I'm your Toy Expert AI. Looking for the perfect gift? Ask me about age recommendations, trending toys, or anything else!" }
   ])
@@ -16,15 +23,40 @@ function App() {
   const chatEndRef = useRef(null)
 
   useEffect(() => {
+    localStorage.setItem('smo-cart', JSON.stringify(cart))
+  }, [cart])
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chatMessages, isTyping])
 
   const addToCart = (product) => {
-    // Snipcart opens automatically on button click via snipcart-add-item class
-    window.Snipcart && window.Snipcart.api.cart.open()
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id)
+      if (existing) {
+        return prev.map(item =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        )
+      }
+      return [...prev, { ...product, qty: 1 }]
+    })
+    setCartOpen(true)
   }
 
-  const cartCount = cart.length
+  const removeFromCart = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id))
+  }
+
+  const updateQty = (id, delta) => {
+    setCart(prev => prev.map(item => {
+      if (item.id !== id) return item
+      const newQty = Math.max(1, item.qty + delta)
+      return { ...item, qty: newQty }
+    }))
+  }
+
+  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0)
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0)
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
@@ -109,9 +141,9 @@ function App() {
             <a onClick={() => scrollToSection('footer')}>Contact</a>
           </div>
           <div className="nav-actions">
-            <button className="cart-btn snipcart-checkout">
+            <button className="cart-btn" onClick={() => setCartOpen(true)}>
               🛒
-              {cartCount > 0 && <span className="cart-badge snipcart-items-count">{cartCount}</span>}
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </button>
             <button className="nav-cta" onClick={() => scrollToSection('featured')}>
               Shop Now
@@ -119,6 +151,61 @@ function App() {
           </div>
         </div>
       </nav>
+
+      {/* Cart Drawer */}
+      {cartOpen && (
+        <div className="cart-overlay" onClick={() => setCartOpen(false)}>
+          <div className="cart-drawer" onClick={e => e.stopPropagation()}>
+            <div className="cart-header">
+              <h3>🛒 Your Cart ({cartCount})</h3>
+              <button className="cart-close" onClick={() => setCartOpen(false)}>✕</button>
+            </div>
+            {cart.length === 0 ? (
+              <div className="cart-empty">
+                <p>Your cart is empty 🛍️</p>
+                <button className="btn-primary" onClick={() => { setCartOpen(false); scrollToSection('featured') }}>
+                  Start Shopping
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="cart-items">
+                  {cart.map(item => (
+                    <div className="cart-item" key={item.id}>
+                      <div className="cart-item-emoji">{item.image.emoji}</div>
+                      <div className="cart-item-info">
+                        <div className="cart-item-name">{item.name}</div>
+                        <div className="cart-item-price">{formatCurrency(item.price)}</div>
+                        <div className="cart-item-qty">
+                          <button onClick={() => updateQty(item.id, -1)}>−</button>
+                          <span>{item.qty}</span>
+                          <button onClick={() => updateQty(item.id, 1)}>+</button>
+                        </div>
+                      </div>
+                      <button className="cart-item-remove" onClick={() => removeFromCart(item.id)}>🗑️</button>
+                    </div>
+                  ))}
+                </div>
+                <div className="cart-footer">
+                  <div className="cart-total">
+                    <span>Total:</span>
+                    <span>{formatCurrency(cartTotal)}</span>
+                  </div>
+                  <p className="cart-note">Free shipping on orders over $35!</p>
+                  <a 
+                    href={`https://www.amazon.com/gp/cart/view.html?tag=sunmoonocean-20`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="checkout-btn"
+                  >
+                    Checkout on Amazon 🛒
+                  </a>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section id="hero" className="hero">
@@ -196,17 +283,20 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
-                <button
-                  className="add-cart-btn snipcart-add-item"
-                  data-item-id={product.id}
-                  data-item-price={product.price}
-                  data-item-url="https://sunmoonocean.com"
-                  data-item-name={product.name}
-                  data-item-description={product.description}
-                  data-item-image={product.image.emoji}
-                >
-                  Add to Cart
-                </button>
+                {product.amazonUrl ? (
+                  <a
+                    href={product.amazonUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="amazon-btn"
+                  >
+                    {product.amazonBtnText || 'View on Amazon'}
+                  </a>
+                ) : (
+                  <button className="add-cart-btn" onClick={() => addToCart(product)}>
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -239,17 +329,20 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
-                <button
-                  className="add-cart-btn snipcart-add-item"
-                  data-item-id={product.id}
-                  data-item-price={product.price}
-                  data-item-url="https://sunmoonocean.com"
-                  data-item-name={product.name}
-                  data-item-description={product.description}
-                  data-item-image={product.image.emoji}
-                >
-                  Add to Cart
-                </button>
+                {product.amazonUrl ? (
+                  <a
+                    href={product.amazonUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="amazon-btn"
+                  >
+                    {product.amazonBtnText || 'View on Amazon'}
+                  </a>
+                ) : (
+                  <button className="add-cart-btn" onClick={() => addToCart(product)}>
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -273,12 +366,47 @@ function App() {
         </div>
       </section>
 
+      {/* Amazon Spotlight */}
+      <section id="amazon-spotlight">
+        <div className="section-header">
+          <div className="section-tag">Amazon Pick</div>
+          <h2 className="section-title">MSKOLER Foam Remote Control Airplane</h2>
+          <p className="section-subtitle">Featured Amazon affiliate product</p>
+        </div>
+        <div className="amazon-spotlight-card">
+          <div className="amazon-spotlight-image">
+            <img 
+              src="https://m.media-amazon.com/images/I/71qhF2HHQzL._AC_SL1500_.jpg" 
+              alt="MSKOLER Foam Remote Control Airplane"
+              loading="lazy"
+              onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '✈️'; }}
+            />
+          </div>
+          <div className="amazon-spotlight-info">
+            <h3>MSKOLER Foam Remote Control Airplane</h3>
+            <p className="amazon-spotlight-desc">
+              2.4 GHz RC Plane with Colorful Lights, 360° Flips & Stunt Roll. 
+              For kids ages 8-16, boys and girls. 
+              <span className="amazon-rating">⭐ 4.1</span> · 145 reviews
+            </p>
+            <a 
+              href="https://www.amazon.com/dp/B0F4XKJS8G?tag=sunmoonocean-20"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="amazon-btn-large"
+            >
+              View on Amazon 🛒
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Viral Products Admin Panel */}
       <section id="admin">
         <div className="section-header">
           <div className="section-tag">Store Dashboard</div>
           <h2 className="section-title">Viral Products Admin Panel</h2>
-          <p className="section-subtitle">Track trends, manage inventory, and research what\'s next</p>
+          <p className="section-subtitle">Track trends, manage inventory, and research what's next</p>
         </div>
         <div className="admin-panel">
           <div className="admin-tabs">
@@ -377,7 +505,7 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Why Choose Us</div>
           <h2 className="section-title">The SunMoonOcean Promise</h2>
-          <p className="section-subtitle">We\'re parents too — so we only sell what we\'d give our own kids</p>
+          <p className="section-subtitle">We're parents too — so we only sell what we'd give our own kids</p>
         </div>
         <div className="why-grid">
           <div className="why-card">
@@ -425,6 +553,7 @@ function App() {
               Do you have free shipping?
             </button>
           </div>
+
           <div className="chat-container">
             <div className="chat-messages">
               {chatMessages.map((msg, i) => (
@@ -436,7 +565,11 @@ function App() {
               {isTyping && (
                 <div className="chat-message assistant">
                   <div className="chat-avatar">🧸</div>
-                  <div className="chat-bubble typing"><span></span><span></span><span></span></div>
+                  <div className="chat-bubble typing">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
                 </div>
               )}
               <div ref={chatEndRef} />
@@ -444,7 +577,7 @@ function App() {
             <form className="chat-input-area" onSubmit={handleChatSubmit}>
               <input
                 type="text"
-                placeholder="Ask me about toys, ages, or recommendations..."
+                placeholder="Ask me about toys, ages, or gifts..."
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
               />
@@ -456,10 +589,14 @@ function App() {
 
       {/* Newsletter */}
       <section id="newsletter">
-        <div className="newsletter">
-          <h2 className="newsletter-title">🎁 Get 10% Off Your First Order</h2>
-          <p className="newsletter-subtitle">Join our newsletter for exclusive deals, new arrivals, and parenting tips</p>
-          {!newsletterSubmitted ? (
+        <div className="newsletter-content">
+          <h2 className="newsletter-title">Get 10% Off Your First Order</h2>
+          <p className="newsletter-subtitle">Join our newsletter for exclusive deals, new arrivals, and parenting tips.</p>
+          {newsletterSubmitted ? (
+            <div className="newsletter-success">
+              🎉 Thanks for subscribing! Check your inbox for your 10% off code.
+            </div>
+          ) : (
             <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
@@ -468,12 +605,8 @@ function App() {
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 required
               />
-              <button type="submit">Subscribe</button>
+              <button type="submit" className="btn-primary">Subscribe</button>
             </form>
-          ) : (
-            <div className="newsletter-success">
-              ✅ Welcome! Check your inbox for your 10% off code!
-            </div>
           )}
         </div>
       </section>
@@ -483,36 +616,37 @@ function App() {
         <div className="footer-grid">
           <div className="footer-col">
             <h4>Shop</h4>
-            <a onClick={() => scrollToSection('featured')}>Featured</a>
+            <a onClick={() => scrollToSection('featured')}>All Products</a>
             <a onClick={() => scrollToSection('trending')}>Trending</a>
             <a onClick={() => scrollToSection('categories')}>Categories</a>
+            <a href="https://www.amazon.com/gp/search?ie=UTF8&tag=sunmoonocean-20&index=toys-and-games&keywords=kids+toys" target="_blank" rel="noopener noreferrer">Amazon Store</a>
           </div>
           <div className="footer-col">
-            <h4>Help</h4>
-            <a>Shipping Info</a>
-            <a>Returns</a>
-            <a>Track Order</a>
-            <a>FAQ</a>
+            <h4>Company</h4>
+            <a onClick={() => scrollToSection('about')}>About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Blog</a>
           </div>
           <div className="footer-col">
-            <h4>About</h4>
-            <a>Our Story</a>
-            <a>Sustainability</a>
-            <a>Careers</a>
-            <a>Press</a>
+            <h4>Support</h4>
+            <a href="#">Help Center</a>
+            <a href="#">Shipping Info</a>
+            <a href="#">Returns</a>
+            <a href="#">Contact Us</a>
           </div>
           <div className="footer-col">
             <h4>Connect</h4>
             <div className="footer-social">
-              <span>📘</span>
               <span>📸</span>
               <span>🐦</span>
+              <span>📘</span>
               <span>▶️</span>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          © 2026 SunMoonOcean | Where Play Goes Viral
+          © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases.
         </div>
       </footer>
     </div>

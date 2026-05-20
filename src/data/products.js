@@ -11,7 +11,8 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: { emoji: "🚀", bg: "#FF6B6B" },
-    description: "Build 3 different rocket models with 250+ pieces. Includes astronaut minifigures and launch pad."
+    description: "Build 3 different rocket models with 250+ pieces. Includes astronaut minifigures and launch pad.",
+    amazonUrl: "https://www.amazon.com/s?k=cosmic+rocket+building+set&tag=sunmoonocean-20"
   },
   {
     id: 2,
@@ -25,7 +26,8 @@ export const products = [
     isTrending: false,
     isFeatured: true,
     image: { emoji: "🎨", bg: "#4ECDC4" },
-    description: "120-piece art set with watercolors, markers, crayons, colored pencils, and sketch pad."
+    description: "120-piece art set with watercolors, markers, crayons, colored pencils, and sketch pad.",
+    amazonUrl: "https://www.amazon.com/s?k=deluxe+art+studio+kit+kids&tag=sunmoonocean-20"
   },
   {
     id: 3,
@@ -39,7 +41,8 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: { emoji: "🧩", bg: "#F7DC6F" },
-    description: "Build your own T-Rex skeleton with 45 precision-cut wooden pieces. Glows in the dark!"
+    description: "Build your own T-Rex skeleton with 45 precision-cut wooden pieces. Glows in the dark!",
+    amazonUrl: "https://www.amazon.com/s?k=3d+dinosaur+puzzle+kids&tag=sunmoonocean-20"
   },
   {
     id: 4,
@@ -53,7 +56,8 @@ export const products = [
     isTrending: false,
     isFeatured: true,
     image: { emoji: "🏕️", bg: "#87CEEB" },
-    description: "15-piece adventure set with pop-up tent, binoculars, compass, and play campfire."
+    description: "15-piece adventure set with pop-up tent, binoculars, compass, and play campfire.",
+    amazonUrl: "https://www.amazon.com/s?k=explorer+camping+playset+kids&tag=sunmoonocean-20"
   },
   {
     id: 5,
@@ -67,7 +71,8 @@ export const products = [
     isTrending: false,
     isFeatured: true,
     image: { emoji: "🧸", bg: "#FFB6C1" },
-    description: "Super-soft GOTS-certified organic cotton bear. Machine washable and hypoallergenic."
+    description: "Super-soft GOTS-certified organic cotton bear. Machine washable and hypoallergenic.",
+    amazonUrl: "https://www.amazon.com/s?k=organic+cotton+sleep+bear&tag=sunmoonocean-20"
   },
   {
     id: 6,
@@ -81,7 +86,8 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: { emoji: "👑", bg: "#DDA0DD" },
-    description: "8-piece dress-up set with reversible cape, crown, sword, and jewelry. Fits ages 4-8."
+    description: "8-piece dress-up set with reversible cape, crown, sword, and jewelry. Fits ages 4-8.",
+    amazonUrl: "https://www.amazon.com/s?k=princess+knight+costume+box+kids&tag=sunmoonocean-20"
   },
   {
     id: 7,
@@ -95,7 +101,8 @@ export const products = [
     isTrending: true,
     isFeatured: false,
     image: { emoji: "🔬", bg: "#98FB98" },
-    description: "50 real experiments with safety goggles, test tubes, and illustrated guidebook."
+    description: "50 real experiments with safety goggles, test tubes, and illustrated guidebook.",
+    amazonUrl: "https://www.amazon.com/s?k=junior+scientist+lab+kit&tag=sunmoonocean-20"
   },
   {
     id: 8,
@@ -109,7 +116,8 @@ export const products = [
     isTrending: false,
     isFeatured: false,
     image: { emoji: "🎲", bg: "#FFD700" },
-    description: "3 classic board games in one box: strategy, trivia, and cooperative adventure."
+    description: "3 classic board games in one box: strategy, trivia, and cooperative adventure.",
+    amazonUrl: "https://www.amazon.com/s?k=family+game+night+bundle&tag=sunmoonocean-20"
   },
   {
     id: 9,
@@ -123,7 +131,8 @@ export const products = [
     isTrending: true,
     isFeatured: false,
     image: { emoji: "🌊", bg: "#20B2AA" },
-    description: "Interactive water table with slides, scoops, and spinning wheels. Height adjustable."
+    description: "Interactive water table with slides, scoops, and spinning wheels. Height adjustable.",
+    amazonUrl: "https://www.amazon.com/s?k=splash+play+water+table&tag=sunmoonocean-20"
   },
   {
     id: 10,
@@ -137,7 +146,8 @@ export const products = [
     isTrending: false,
     isFeatured: false,
     image: { emoji: "🎭", bg: "#FF69B4" },
-    description: "Tabletop puppet theater with 6 hand puppets and write-on marquee board."
+    description: "Tabletop puppet theater with 6 hand puppets and write-on marquee board.",
+    amazonUrl: "https://www.amazon.com/s?k=puppet+theater+studio+kids&tag=sunmoonocean-20"
   },
   {
     id: 11,
@@ -151,7 +161,8 @@ export const products = [
     isTrending: false,
     isFeatured: true,
     image: { emoji: "🍼", bg: "#F4A460" },
-    description: "12 textured wooden blocks in rainbow colors. Develops fine motor skills and color recognition."
+    description: "12 textured wooden blocks in rainbow colors. Develops fine motor skills and color recognition.",
+    amazonUrl: "https://www.amazon.com/s?k=montessori+sensory+blocks&tag=sunmoonocean-20"
   },
   {
     id: 12,
@@ -165,6 +176,23 @@ export const products = [
     isTrending: false,
     isFeatured: false,
     image: { emoji: "🖍️", bg: "#9370DB" },
-    description: "12 non-toxic, washable finger paints in squeeze bottles. Includes giant paper roll."
+    description: "12 non-toxic, washable finger paints in squeeze bottles. Includes giant paper roll.",
+    amazonUrl: "https://www.amazon.com/s?k=washable+finger+paint+set&tag=sunmoonocean-20"
+  },
+  {
+    id: 13,
+    name: "MSKOLER Foam Remote Control Airplane",
+    price: 39.99,
+    originalPrice: null,
+    rating: 4.1,
+    reviewCount: 145,
+    category: "STEM Toys",
+    tags: ["amazon-pick", "ages-8-16"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "✈️", bg: "#4169E1" },
+    description: "2.4 GHz RC Plane with Colorful Lights, 360° Flips & Stunt Roll. For kids ages 8-16, boys and girls.",
+    amazonUrl: "https://www.amazon.com/dp/B0F4XKJS8G?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
