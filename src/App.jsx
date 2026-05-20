@@ -20,7 +20,8 @@ function App() {
   }, [chatMessages, isTyping])
 
   const addToCart = (product) => {
-    setCart([...cart, product])
+    // Snipcart opens automatically on button click via snipcart-add-item class
+    window.Snipcart && window.Snipcart.api.cart.open()
   }
 
   const cartCount = cart.length
@@ -108,9 +109,9 @@ function App() {
             <a onClick={() => scrollToSection('footer')}>Contact</a>
           </div>
           <div className="nav-actions">
-            <button className="cart-btn">
+            <button className="cart-btn snipcart-checkout">
               🛒
-              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+              {cartCount > 0 && <span className="cart-badge snipcart-items-count">{cartCount}</span>}
             </button>
             <button className="nav-cta" onClick={() => scrollToSection('featured')}>
               Shop Now
@@ -195,7 +196,15 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
-                <button className="add-cart-btn" onClick={() => addToCart(product)}>
+                <button
+                  className="add-cart-btn snipcart-add-item"
+                  data-item-id={product.id}
+                  data-item-price={product.price}
+                  data-item-url="/api/products"
+                  data-item-name={product.name}
+                  data-item-description={product.description}
+                  data-item-image={product.image.emoji}
+                >
                   Add to Cart
                 </button>
               </div>
@@ -230,7 +239,15 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
-                <button className="add-cart-btn" onClick={() => addToCart(product)}>
+                <button
+                  className="add-cart-btn snipcart-add-item"
+                  data-item-id={product.id}
+                  data-item-price={product.price}
+                  data-item-url="/api/products"
+                  data-item-name={product.name}
+                  data-item-description={product.description}
+                  data-item-image={product.image.emoji}
+                >
                   Add to Cart
                 </button>
               </div>
