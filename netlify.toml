@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+  directory = "netlify/functions"
+
+# Scheduled function: runs pipeline daily at 8am UTC
+[functions.schedule]
+  functions = ["scheduler"]
+  cron = "0 8 * * *"

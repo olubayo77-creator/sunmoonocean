@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumin Lending — Unlock Your Home Equity in 5 Days</title>
+    <meta name="description" content="Check your HELOC rate in 5 minutes with no credit impact. Funding in as few as 5 days. Fixed rates, no prepayment penalties.">
+    <style>
+        :root {
+            --color-primary: #0f172a;
+            --color-primary-hover: #020617;
+            --color-text: #111827;
+            --color-text-secondary: #6b7280;
+            --color-background: #ffffff;
+            --color-background-alt: #f8f9fa;
+            --color-border: #e5e7eb;
+            --color-accent: #f59e0b;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 5rem;
+            --radius: 0.375rem;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3 { font-weight: 700; line-height: 1.2; }
+        h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--spacing-md); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: var(--spacing-lg); text-align: center; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 1rem 2rem; font-size: 1rem; font-weight: 500;
+            border-radius: var(--radius); cursor: pointer; transition: all 0.2s;
+            border: none; text-decoration: none; background: var(--color-primary); color: white;
+        }
+        .btn:hover { background: var(--color-primary-hover); text-decoration: none; }
+        .btn-large { padding: 1.25rem 2.5rem; font-size: 1.125rem; }
+        .form-input {
+            width: 100%; padding: 0.875rem 1rem; font-size: 1rem;
+            border: 1px solid var(--color-border); border-radius: var(--radius);
+            background: var(--color-background);
+        }
+        .form-input:focus { outline: none; border-color: var(--color-primary); }
+        .inline-form { display: flex; gap: var(--spacing-sm); max-width: 600px; margin: 0 auto; }
+        .inline-form > * { flex: 1; }
+        @media (max-width: 640px) { .inline-form { flex-direction: column; } }
+        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-lg); }
+        .step { text-align: center; }
+        .step-number { font-size: 2.5rem; font-weight: 700; color: #e5e7eb; margin-bottom: var(--spacing-xs); }
+        .step-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .step-desc { font-size: 0.875rem; color: var(--color-text-secondary); }
+        @media (max-width: 768px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+        .use-cases { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--spacing-md); }
+        .use-case { text-align: center; }
+        .use-case-icon {
+            width: 56px; height: 56px; margin: 0 auto var(--spacing-sm);
+            background: var(--color-background-alt); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+        }
+        .use-case-label { font-size: 0.875rem; font-weight: 500; }
+        @media (max-width: 768px) { .use-cases { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 480px) { .use-cases { grid-template-columns: repeat(2, 1fr); } }
+        .testimonial { text-align: center; padding: var(--spacing-lg); max-width: 700px; margin: 0 auto; }
+        .testimonial-stars { color: var(--color-accent); font-size: 1.25rem; margin-bottom: var(--spacing-md); }
+        .testimonial-quote { font-size: 1.25rem; font-weight: 500; margin-bottom: var(--spacing-md); line-height: 1.4; }
+        .testimonial-author { font-size: 0.9375rem; color: var(--color-text-secondary); }
+        .testimonial-tag { display: inline-block; background: var(--color-background-alt); padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; margin-left: var(--spacing-xs); }
+        .carousel-controls { display: flex; justify-content: center; gap: 0.5rem; margin-top: var(--spacing-md); }
+        .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border); cursor: pointer; }
+        .carousel-dot.active { background: var(--color-primary); }
+        .announcement-bar {
+            background: var(--color-primary); color: white;
+            padding: 0.75rem var(--spacing-md); text-align: center; font-size: 0.9375rem;
+        }
+        .announcement-bar a { color: white; text-decoration: underline; font-weight: 500; margin-left: 0.5rem; }
+        .nav {
+            position: sticky; top: 0;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border); z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md);
+            display: flex; align-items: center; justify-content: space-between; height: 64px;
+        }
+        .nav-logo { font-size: 1.25rem; font-weight: 700; }
+        .nav-links { display: flex; gap: var(--spacing-lg); }
+        .nav-link { font-size: 0.9375rem; font-weight: 500; color: var(--color-text-secondary); }
+        .nav-link:hover { color: var(--color-text); text-decoration: none; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+        .section { padding: var(--spacing-2xl) var(--spacing-md); }
+        .section-alt { background: var(--color-background-alt); }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .container-narrow { max-width: 720px; margin: 0 auto; }
+        .hero { padding: var(--spacing-2xl) var(--spacing-md); text-align: center; }
+        .hero-content { max-width: 720px; margin: 0 auto; }
+        .hero-subtitle { font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: var(--spacing-lg); }
+        .hero-social-proof { display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm); font-size: 0.9375rem; color: var(--color-text-secondary); margin-bottom: var(--spacing-xl); flex-wrap: wrap; }
+        .hero-disclaimer { font-size: 0.75rem; color: var(--color-text-secondary); margin-top: var(--spacing-sm); }
+        .footer-cta { text-align: center; padding: var(--spacing-2xl) var(--spacing-md); background: var(--color-background-alt); }
+        .footer-cta-subtitle { font-size: 1.125rem; color: var(--color-text-secondary); margin-bottom: var(--spacing-lg); }
+        .footer { padding: var(--spacing-xl) var(--spacing-md); border-top: 1px solid var(--color-border); text-align: center; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--spacing-md); margin-bottom: var(--spacing-md); }
+        .footer-legal { font-size: 0.75rem; color: var(--color-text-secondary); max-width: 800px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+    New HELOC rates live today. Close in as few as 5 days.
+    <a href="#check-rate">Check Rates →</a>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <div class="nav-logo">Lumin Lending</div>
+        <div class="nav-links">
+            <a href="#how-it-works" class="nav-link">How it Works</a>
+            <a href="#reviews" class="nav-link">Reviews</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+            <a href="#check-rate" class="btn">Check My Rate</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="check-rate">
+    <div class="hero-content">
+        <h1>Unlock your home equity in 5 days</h1>
+        <p class="hero-subtitle">Check your rate in 5 minutes with no impact to your credit score.</p>
+        
+        <div class="hero-social-proof">
+            <span>⭐ 4.97</span>
+            <span>·</span>
+            <span>1,200+ reviews</span>
+            <span>·</span>
+            <span>A+ BBB Rating</span>
+            <span>·</span>
+            <span>$22B+ unlocked</span>
+        </div>
+        
+        <form class="inline-form" action="/account/heloc/register" method="GET">
+            <input type="text" name="homeValue" class="form-input" placeholder="Home Value (e.g. $500,000)" required>
+            <input type="text" name="mortgageBalance" class="form-input" placeholder="Mortgage Balance (e.g. $300,000)" required>
+            <button type="submit" class="btn btn-large">Check My Rate →</button>
+        </form>
+        
+        <p class="hero-disclaimer">Soft credit check only. No obligation. Funding in as few as 5 days.</p>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section section-alt" id="how-it-works">
+    <div class="container">
+        <h2>How it works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3 class="step-title">Check your rate</h3>
+                <p class="step-desc">Soft credit pull. No impact to your score.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3 class="step-title">Connect & verify</h3>
+                <p class="step-desc">Link your bank. E-sign everything online.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3 class="step-title">Notarize remotely</h3>
+                <p class="step-desc">Video call. No office visits required.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">04</div>
+                <h3 class="step-title">Get funded</h3>
+                <p class="step-desc">Money deposited in as few as 5 days.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases -->
+<section class="section">
+    <div class="container">
+        <h2>Use your equity for</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-icon">🏠</div>
+                <div class="use-case-label">Home improvement</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">💳</div>
+                <div class="use-case-label">Debt consolidation</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">🏢</div>
+                <div class="use-case-label">Small business</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">🎓</div>
+                <div class="use-case-label">Education</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">🚗</div>
+                <div class="use-case-label">Major purchases</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section section-alt" id="reviews">
+    <div class="container">
+        <h2>What homeowners say</h2>
+        <div class="testimonials">
+            <div class="testimonial" data-index="0">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Had funds before my credit union called me back."</p>
+                <p class="testimonial-author">— Marcus T., Denver <span class="testimonial-tag">Renovation</span></p>
+            </div>
+            <div class="testimonial" data-index="1" style="display:none;">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Consolidated four cards into one payment. Cut monthly outflow in half."</p>
+                <p class="testimonial-author">— Priya K., Austin <span class="testimonial-tag">Consolidation</span></p>
+            </div>
+            <div class="testimonial" data-index="2" style="display:none;">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Every question answered same day. Digital notarization was impressive."</p>
+                <p class="testimonial-author">— David & Rose L., Tampa <span class="testimonial-tag">Remodel</span></p>
+            </div>
+            <div class="testimonial" data-index="3" style="display:none;">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"Applied Sunday night. Money in my account Thursday morning."</p>
+                <p class="testimonial-author">— Jennifer M., Phoenix <span class="testimonial-tag">Debt consolidation</span></p>
+            </div>
+            <div class="testimonial" data-index="4" style="display:none;">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-quote">"No appraisal needed. No paperwork chase. Just... done."</p>
+                <p class="testimonial-author">— Robert K., Seattle <span class="testimonial-tag">Home improvement</span></p>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <span class="carousel-dot active" data-index="0"></span>
+            <span class="carousel-dot" data-index="1"></span>
+            <span class="carousel-dot" data-index="2"></span>
+            <span class="carousel-dot" data-index="3"></span>
+            <span class="carousel-dot" data-index="4"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="footer-cta">
+    <div class="container-narrow">
+        <h2>Ready to unlock your equity?</h2>
+        <p class="footer-cta-subtitle">Join thousands of homeowners who chose the faster way.</p>
+        <a href="#check-rate" class="btn btn-large">Check My Rate — 5 Minutes, No Credit Impact</a>
+    </div>
+</section>
+
+<!-- FAQ (Collapsed) -->
+<section class="section" id="faq">
+    <div class="container-narrow">
+        <h2>Common questions</h2>
+        <p style="text-align:center; color:var(--color-text-secondary);">
+            <a href="/faq" style="text-decoration:underline;">View all FAQs →</a>
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">Lumin Lending</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/faq">FAQ</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/licensing">NMLS #XXXXXX</a>
+        </div>
+        <p class="footer-legal">
+            Lumin Lending LLC. NMLS ID XXXXXX. For licensing information go to www.nmlsconsumeraccess.org. 
+            Equal Housing Lender. © 2026 Lumin Lending. All rights reserved.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Simple testimonial carousel
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let current = 0;
+    
+    function showTestimonial(index) {
+        testimonials.forEach((t, i) => t.style.display = i === index ? 'block' : 'none');
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        current = index;
+    }
+    
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => showTestimonial(i));
+    });
+    
+    // Auto-rotate every 5 seconds
+    setInterval(() => {
+        showTestimonial((current + 1) % testimonials.length);
+    }, 5000);
+</script>
+
+</body>
+</html>
