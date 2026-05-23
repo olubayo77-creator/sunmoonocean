@@ -110,6 +110,7 @@ function App() {
 
   const featuredProducts = products.filter(p => p.isFeatured)
   const trendingProducts = products.filter(p => p.isTrending)
+  const dadDaughterPicks = products.filter(p => p.tags?.includes('dad-daughter-pick'))
 
   const categories = [
     { emoji: '🔬', name: 'STEM Toys' },
@@ -216,11 +217,11 @@ function App() {
           </div>
           <div className="hero-badge">✨ Discover Joy in Every Box</div>
           <h1 className="hero-title">
-            <span className="hero-tagline">Where Play Goes Viral</span>
+            <span className="hero-tagline">The best toy is an excuse to play together</span>
           </h1>
           <p className="hero-subtitle">
-            Curated toys that spark imagination, creativity, and endless fun. 
-            From trending viral hits to timeless classics — find the perfect gift at SunMoonOcean.
+            SunMoonOcean helps dads find gifts that spark laughter, imagination, and real connection with their daughters.
+            Fun viral picks, memorable moments, and toys worth getting down on the floor for.
           </p>
           <div className="hero-ctas">
             <button className="btn-primary" onClick={() => scrollToSection('featured')}>
@@ -252,7 +253,7 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Our Picks</div>
           <h2 className="section-title">Featured Products</h2>
-          <p className="section-subtitle">Direct Amazon affiliate picks only — every product links to a paid Amazon listing</p>
+          <p className="section-subtitle">Direct Amazon affiliate picks chosen for fun, connection, and play time that dads and daughters can share</p>
         </div>
         <div className="products-grid">
           {featuredProducts.map(product => (
@@ -288,6 +289,12 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
+                {product.tags?.includes('dad-daughter-pick') && (
+                  <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
+                )}
+                {product.tags?.includes('dad-daughter-pick') && (
+                  <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
+                )}
                 {product.amazonUrl ? (
                   <a
                     href={product.amazonUrl}
@@ -361,6 +368,62 @@ function App() {
                     Add to Cart
                   </button>
                 )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Dad + Daughter Picks */}
+      <section id="dad-daughter-picks">
+        <div className="section-header">
+          <div className="section-tag">Bonding Time</div>
+          <h2 className="section-title">Dad + Daughter Picks</h2>
+          <p className="section-subtitle">Curated toys that make it easier to laugh, build, imagine, and play together</p>
+        </div>
+        <div className="products-grid">
+          {dadDaughterPicks.map(product => (
+            <div className="product-card" key={product.id}>
+              <div className="product-image" style={{ background: product.image.bg }}>
+                {product.isTrending && (
+                  <span className="trending-badge">🔥 Trending</span>
+                )}
+                {product.image.src ? (
+                  <img
+                    src={product.image.src}
+                    alt={product.image.alt || product.name}
+                    className="product-photo"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      const fallback = e.currentTarget.parentElement.querySelector('.product-emoji-fallback')
+                      if (fallback) fallback.style.display = 'block'
+                    }}
+                  />
+                ) : null}
+                <span className="product-emoji-fallback" style={{ display: product.image.src ? 'none' : 'block' }}>{product.image.emoji || '🛍️'}</span>
+              </div>
+              <div className="product-info">
+                <div className="product-name">{product.name}</div>
+                <div className="product-meta">
+                  <span className="product-rating">⭐ {product.rating}</span>
+                  <span className="product-reviews">({product.reviewCount})</span>
+                </div>
+                <div className="product-price-row">
+                  <span className="product-price">{formatCurrency(product.price)}</span>
+                  {product.originalPrice && (
+                    <span className="product-original">{formatCurrency(product.originalPrice)}</span>
+                  )}
+                </div>
+                <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
+                <a
+                  href={product.amazonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="amazon-btn"
+                >
+                  {product.amazonBtnText || 'View on Amazon'}
+                </a>
               </div>
             </div>
           ))}
@@ -488,8 +551,9 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Why Choose Us</div>
           <h2 className="section-title">The SunMoonOcean Promise</h2>
-          <p className="section-subtitle">We're parents too — so we only sell what we'd give our own kids</p>
+          <p className="section-subtitle">Built around a simple belief: the right toy can create the right moment between a dad and his daughter</p>
         </div>
+        <div className="mission-note">SunMoonOcean was built by a parent who believes the best gift is not just the toy itself — it's the shared laugh, the living-room adventure, and the little ritual of dads showing up to play with their daughters.</div>
         <div className="why-grid">
           <div className="why-card">
             <div className="why-emoji">🛡️</div>
@@ -629,7 +693,7 @@ function App() {
           </div>
         </div>
         <div className="footer-bottom">
-          © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases.
+          Where play brings dads and daughters together. © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases.
         </div>
       </footer>
     </div>
