@@ -83,7 +83,7 @@ h1, h2, h3, h4 {
 }
 
 .logo .brand-coral { color: var(--coral); }
-.logo .brand-teal { color: var(--teal); -webkit-text-stroke: 1px #000; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.logo .brand-teal { color: var(--sand); }
 .logo .brand-sand { color: var(--sand); }
 
 .nav-links {
@@ -304,8 +304,8 @@ h1, h2, h3, h4 {
 }
 
 .hero-tagline {
-  color: #6da9c8;
-  text-shadow: 0 1px 0 rgba(255, 214, 102, 0.88), 0 0 20px rgba(255, 214, 102, 0.26), 0 0 34px rgba(95, 168, 255, 0.16);
+  color: var(--sand);
+  text-shadow: 0 1px 0 rgba(31, 58, 102, 0.08), 0 0 18px rgba(247, 220, 111, 0.22);
 }
 
 .hero-subtitle {
@@ -871,8 +871,8 @@ section {
   }
 
   .hero-tagline {
-    color: #4c98c9;
-    text-shadow: 0 1px 0 rgba(255, 214, 102, 0.95), 0 0 18px rgba(255, 214, 102, 0.32), 0 0 30px rgba(95, 168, 255, 0.18);
+    color: #f4d85f;
+    text-shadow: 0 1px 0 rgba(31, 58, 102, 0.14), 0 0 16px rgba(247, 220, 111, 0.28);
   }
 
   .hero-subtitle,
@@ -925,8 +925,8 @@ section {
   }
 
   .hero-tagline {
-    color: #2f89c6;
-    text-shadow: 0 1px 0 rgba(255, 214, 102, 1), 0 0 16px rgba(255, 214, 102, 0.42), 0 0 28px rgba(95, 168, 255, 0.28);
+    color: #ffd95a;
+    text-shadow: 0 1px 0 rgba(31, 58, 102, 0.22), 0 0 18px rgba(247, 220, 111, 0.34);
   }
 
   .hero-subtitle {
