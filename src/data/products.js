@@ -50,5 +50,21 @@ export const products = [
     description: "Glow-in-the-dark ZipString webshooter-style toy with direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0FQLK994V?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 16,
+    name: "SOYUOI Ultimate Transforming Unicorn Car",
+    price: 29.99,
+    originalPrice: null,
+    rating: 4.2,
+    reviewCount: 51,
+    category: "Dress Up & Role Play",
+    tags: ["new", "amazon-pick", "ages-4+"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🦄", bg: "#C084FC" },
+    description: "Transforming unicorn car toy with direct Amazon affiliate link.",
+    amazonUrl: "https://www.amazon.com/dp/B0CL2LC3SC?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
