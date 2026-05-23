@@ -98,5 +98,21 @@ export const products = [
     description: "Active play system for energetic family game time with a direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0D2JGYX3F?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 19,
+    name: "Dinosaur Climbing Car Ramp Toy",
+    price: 27.99,
+    originalPrice: null,
+    rating: 4.4,
+    reviewCount: 112,
+    category: "STEM Toys",
+    tags: ["new", "amazon-pick", "ages-3+", "dad-daughter-pick"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🦕", bg: "#F59E0B" },
+    description: "Colorful dinosaur climbing car ramp construction toy for playful learning and shared fun.",
+    amazonUrl: "https://www.amazon.com/dp/B09MQJ3NBW?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
