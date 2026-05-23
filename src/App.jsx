@@ -292,9 +292,6 @@ function App() {
                 {product.tags?.includes('dad-daughter-pick') && (
                   <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
                 )}
-                {product.tags?.includes('dad-daughter-pick') && (
-                  <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
-                )}
                 {product.amazonUrl ? (
                   <a
                     href={product.amazonUrl}
