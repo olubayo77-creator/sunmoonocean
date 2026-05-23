@@ -1,51 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { products } from './data/products'
 import './App.css'
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('smo-cart')) || []
-    } catch {
-      return []
-    }
-  })
-  const [cartOpen, setCartOpen] = useState(false)
   const [activeAdminTab, setActiveAdminTab] = useState('Trend Research')
   const [isResearchRunning, setIsResearchRunning] = useState(false)
-
-  useEffect(() => {
-    localStorage.setItem('smo-cart', JSON.stringify(cart))
-  }, [cart])
-
-
-  const addToCart = (product) => {
-    setCart(prev => {
-      const existing = prev.find(item => item.id === product.id)
-      if (existing) {
-        return prev.map(item =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
-        )
-      }
-      return [...prev, { ...product, qty: 1 }]
-    })
-    setCartOpen(true)
-  }
-
-  const removeFromCart = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id))
-  }
-
-  const updateQty = (id, delta) => {
-    setCart(prev => prev.map(item => {
-      if (item.id !== id) return item
-      const newQty = Math.max(1, item.qty + delta)
-      return { ...item, qty: newQty }
-    }))
-  }
-
-  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0)
-  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0)
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
@@ -53,8 +12,6 @@ function App() {
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }
-
-
 
   const runResearch = () => {
     setIsResearchRunning(true)
@@ -97,63 +54,12 @@ function App() {
             <a onClick={() => scrollToSection('footer')}>Contact</a>
           </div>
           <div className="nav-actions">
-            <button className="cart-btn" onClick={() => setCartOpen(true)}>
-              🛒
-              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-            </button>
             <button className="nav-cta" onClick={() => scrollToSection('featured')}>
               Shop Now
             </button>
           </div>
         </div>
       </nav>
-
-      {/* Cart Drawer */}
-      {cartOpen && (
-        <div className="cart-overlay" onClick={() => setCartOpen(false)}>
-          <div className="cart-drawer" onClick={e => e.stopPropagation()}>
-            <div className="cart-header">
-              <h3>🛒 Your Cart ({cartCount})</h3>
-              <button className="cart-close" onClick={() => setCartOpen(false)}>✕</button>
-            </div>
-            {cart.length === 0 ? (
-              <div className="cart-empty">
-                <p>Your cart is empty 🛍️</p>
-                <button className="btn-primary" onClick={() => { setCartOpen(false); scrollToSection('featured') }}>
-                  Start Shopping
-                </button>
-              </div>
-            ) : (
-              <>
-                <div className="cart-items">
-                  {cart.map(item => (
-                    <div className="cart-item" key={item.id}>
-                      <div className="cart-item-emoji">{item.image.emoji}</div>
-                      <div className="cart-item-info">
-                        <div className="cart-item-name">{item.name}</div>
-                        <div className="cart-item-price">{formatCurrency(item.price)}</div>
-                        <div className="cart-item-qty">
-                          <button onClick={() => updateQty(item.id, -1)}>−</button>
-                          <span>{item.qty}</span>
-                          <button onClick={() => updateQty(item.id, 1)}>+</button>
-                        </div>
-                      </div>
-                      <button className="cart-item-remove" onClick={() => removeFromCart(item.id)}>🗑️</button>
-                    </div>
-                  ))}
-                </div>
-                <div className="cart-footer">
-                  <div className="cart-total">
-                    <span>Total:</span>
-                    <span>{formatCurrency(cartTotal)}</span>
-                  </div>
-                  <p className="cart-note">Amazon products open directly on Amazon in a new tab.</p>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Hero Section */}
       <section id="hero" className="hero">
@@ -188,16 +94,16 @@ function App() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="hero-stat-value">10,000+</div>
-              <div className="hero-stat-label">Happy Kids</div>
+              <div className="hero-stat-value">8 Picks</div>
+              <div className="hero-stat-label">Current Favorites</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">Free Ship</div>
-              <div className="hero-stat-label">Orders Over $35</div>
+              <div className="hero-stat-value">Amazon</div>
+              <div className="hero-stat-label">Affiliate Links</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">⭐ 5-Star</div>
-              <div className="hero-stat-label">Top Rated</div>
+              <div className="hero-stat-value">Dad + Daughter</div>
+              <div className="hero-stat-label">Play Ideas</div>
             </div>
           </div>
         </div>
@@ -247,20 +153,14 @@ function App() {
                 {product.tags?.includes('dad-daughter-pick') && (
                   <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
                 )}
-                {product.amazonUrl ? (
-                  <a
-                    href={product.amazonUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="amazon-btn"
-                  >
-                    {product.amazonBtnText || 'View on Amazon'}
-                  </a>
-                ) : (
-                  <button className="add-cart-btn" onClick={() => addToCart(product)}>
-                    Add to Cart
-                  </button>
-                )}
+                <a
+                  href={product.amazonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="amazon-btn"
+                >
+                  {product.amazonBtnText || 'View on Amazon'}
+                </a>
               </div>
             </div>
           ))}
@@ -306,20 +206,14 @@ function App() {
                     <span className="product-original">{formatCurrency(product.originalPrice)}</span>
                   )}
                 </div>
-                {product.amazonUrl ? (
-                  <a
-                    href={product.amazonUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="amazon-btn"
-                  >
-                    {product.amazonBtnText || 'View on Amazon'}
-                  </a>
-                ) : (
-                  <button className="add-cart-btn" onClick={() => addToCart(product)}>
-                    Add to Cart
-                  </button>
-                )}
+                <a
+                  href={product.amazonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="amazon-btn"
+                >
+                  {product.amazonBtnText || 'View on Amazon'}
+                </a>
               </div>
             </div>
           ))}
@@ -502,30 +396,30 @@ function App() {
       <section id="about">
         <div className="section-header">
           <div className="section-tag">Why Choose Us</div>
-          <h2 className="section-title">The SunMoonOcean Promise</h2>
+          <h2 className="section-title">Why SunMoonOcean</h2>
           <p className="section-subtitle">Built around a simple belief: the right toy can create the right moment between a dad and his daughter</p>
         </div>
         <div className="mission-note">SunMoonOcean was built by a parent who believes the best gift is not just the toy itself — it's the shared laugh, the living-room adventure, and the little ritual of dads showing up to play with their daughters.</div>
         <div className="why-grid">
           <div className="why-card">
-            <div className="why-emoji">🛡️</div>
-            <div className="why-title">Safe & Tested</div>
-            <div className="why-desc">All toys meet or exceed safety standards. Non-toxic materials only.</div>
+            <div className="why-emoji">🎯</div>
+            <div className="why-title">Play Together</div>
+            <div className="why-desc">We focus on picks that make it easier for dads and daughters to laugh, build, imagine, and bond.</div>
           </div>
           <div className="why-card">
-            <div className="why-emoji">🚚</div>
-            <div className="why-title">Fast Shipping</div>
-            <div className="why-desc">Free shipping over $35. Same-day dispatch for orders before 3pm.</div>
+            <div className="why-emoji">🛍️</div>
+            <div className="why-title">Direct Amazon Links</div>
+            <div className="why-desc">Every product button sends visitors straight to a monetized Amazon listing.</div>
           </div>
           <div className="why-card">
-            <div className="why-emoji">😊</div>
-            <div className="why-title">Happy Customers</div>
-            <div className="why-desc">Over 10,000 five-star reviews from families who love our toys.</div>
+            <div className="why-emoji">🔥</div>
+            <div className="why-title">Trending Picks</div>
+            <div className="why-desc">We spotlight fun, giftable products that feel exciting right now, not generic filler.</div>
           </div>
           <div className="why-card">
-            <div className="why-emoji">↩️</div>
-            <div className="why-title">Easy Returns</div>
-            <div className="why-desc">30-day hassle-free returns. Not happy? We make it right.</div>
+            <div className="why-emoji">ℹ️</div>
+            <div className="why-title">Amazon Handles Fulfillment</div>
+            <div className="why-desc">Pricing, shipping, returns, availability, and fulfillment are handled on Amazon.</div>
           </div>
         </div>
       </section>
@@ -543,16 +437,12 @@ function App() {
           <div className="footer-col">
             <h4>Company</h4>
             <a onClick={() => scrollToSection('about')}>About Us</a>
-            <a href="#">Careers</a>
-            <a href="#">Press</a>
-            <a href="#">Blog</a>
           </div>
           <div className="footer-col">
             <h4>Support</h4>
-            <a href="#">Help Center</a>
-            <a href="#">Shipping Info</a>
-            <a href="#">Returns</a>
-            <a href="#">Contact Us</a>
+            <a href="https://www.amazon.com/gp/help/customer/display.html" target="_blank" rel="noopener noreferrer">Amazon Help</a>
+            <a href="https://www.amazon.com/gp/css/order-history" target="_blank" rel="noopener noreferrer">Order History</a>
+            <a href="https://www.amazon.com/returns" target="_blank" rel="noopener noreferrer">Amazon Returns</a>
           </div>
           <div className="footer-col">
             <h4>Connect</h4>
@@ -565,7 +455,7 @@ function App() {
           </div>
         </div>
         <div className="footer-bottom">
-          Where play brings dads and daughters together. © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases.
+          Where play brings dads and daughters together. © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases. Product details, pricing, availability, shipping, and returns are handled by Amazon.
         </div>
       </footer>
     </div>

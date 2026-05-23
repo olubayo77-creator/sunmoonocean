@@ -38,7 +38,7 @@ export const products = [
   {
     id: 15,
     name: "ZipString Aracna Glow-in-the-Dark Webshooter",
-    price: 34.99,
+    price: 44.99,
     originalPrice: null,
     rating: 4.3,
     reviewCount: 63,
@@ -86,7 +86,7 @@ export const products = [
   {
     id: 18,
     name: "Nex Playground Active Play System",
-    price: 189.99,
+    price: 299.00,
     originalPrice: null,
     rating: 4.5,
     reviewCount: 28,
