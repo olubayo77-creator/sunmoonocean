@@ -108,7 +108,7 @@ function App() {
     }, 2000)
   }
 
-  const featuredProducts = products.filter(p => p.isFeatured).slice(0, 6)
+  const featuredProducts = products.filter(p => p.isFeatured)
   const trendingProducts = products.filter(p => p.isTrending)
 
   const categories = [
@@ -252,7 +252,7 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Our Picks</div>
           <h2 className="section-title">Featured Products</h2>
-          <p className="section-subtitle">Hand-picked favorites loved by kids and parents alike</p>
+          <p className="section-subtitle">Direct Amazon affiliate picks only — every product links to a paid Amazon listing</p>
         </div>
         <div className="products-grid">
           {featuredProducts.map(product => (
@@ -313,7 +313,7 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Hot Right Now</div>
           <h2 className="section-title">Trending This Week</h2>
-          <p className="section-subtitle">The toys everyone's talking about — going viral for a reason!</p>
+          <p className="section-subtitle">Trending Amazon affiliate picks that open directly on Amazon</p>
         </div>
         <div className="trending-scroll">
           {trendingProducts.map(product => (
