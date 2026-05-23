@@ -304,8 +304,8 @@ h1, h2, h3, h4 {
 }
 
 .hero-tagline {
-  color: #2f958f;
-  text-shadow: 0 1px 0 rgba(247, 220, 111, 0.45), 0 0 18px rgba(247, 220, 111, 0.18);
+  color: #5caa6e;
+  text-shadow: 0 1px 0 rgba(247, 220, 111, 0.65), 0 0 20px rgba(247, 220, 111, 0.28);
 }
 
 .hero-subtitle {
@@ -871,8 +871,8 @@ section {
   }
 
   .hero-tagline {
-    color: #277f7a;
-    text-shadow: 0 1px 0 rgba(247, 220, 111, 0.55), 0 0 14px rgba(247, 220, 111, 0.2);
+    color: #4f9c63;
+    text-shadow: 0 1px 0 rgba(247, 220, 111, 0.72), 0 0 16px rgba(247, 220, 111, 0.26);
   }
 
   .hero-subtitle,
