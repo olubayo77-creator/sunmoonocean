@@ -304,8 +304,8 @@ h1, h2, h3, h4 {
 }
 
 .hero-tagline {
-  color: #8fb34a;
-  text-shadow: 0 1px 0 rgba(255, 214, 102, 0.82), 0 0 22px rgba(255, 214, 102, 0.34), 0 0 36px rgba(247, 220, 111, 0.18);
+  color: #6da9c8;
+  text-shadow: 0 1px 0 rgba(255, 214, 102, 0.88), 0 0 20px rgba(255, 214, 102, 0.26), 0 0 34px rgba(95, 168, 255, 0.16);
 }
 
 .hero-subtitle {
@@ -871,8 +871,8 @@ section {
   }
 
   .hero-tagline {
-    color: #7ea83f;
-    text-shadow: 0 1px 0 rgba(255, 214, 102, 0.88), 0 0 18px rgba(255, 214, 102, 0.3), 0 0 28px rgba(247, 220, 111, 0.16);
+    color: #4c98c9;
+    text-shadow: 0 1px 0 rgba(255, 214, 102, 0.95), 0 0 18px rgba(255, 214, 102, 0.32), 0 0 30px rgba(95, 168, 255, 0.18);
   }
 
   .hero-subtitle,
@@ -922,6 +922,11 @@ section {
   .hero-title {
     font-size: clamp(2rem, 9vw, 2.8rem);
     line-height: 1.12;
+  }
+
+  .hero-tagline {
+    color: #2f89c6;
+    text-shadow: 0 1px 0 rgba(255, 214, 102, 1), 0 0 16px rgba(255, 214, 102, 0.42), 0 0 28px rgba(95, 168, 255, 0.28);
   }
 
   .hero-subtitle {
