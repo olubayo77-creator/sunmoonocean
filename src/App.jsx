@@ -65,13 +65,13 @@ function App() {
             <span>🧩</span>
             <span>🌊</span>
           </div>
-          <div className="hero-badge">✨ Discover Joy in Every Box</div>
+          <div className="hero-badge">✨ Amazon affiliate toy picks</div>
           <h1 className="hero-title">
-            <span className="hero-tagline">The best toy is an excuse to play together</span>
+            <span className="hero-tagline">Toys picked to help dads and daughters play together</span>
           </h1>
           <p className="hero-subtitle">
             SunMoonOcean helps dads find gifts that spark laughter, imagination, and real connection with their daughters.
-            Fun viral picks, memorable moments, and toys worth getting down on the floor for.
+            Simple toy picks for shared play, imagination, and time together.
           </p>
           <div className="hero-ctas">
             <button className="btn-primary" onClick={() => scrollToSection('featured')}>
@@ -101,8 +101,8 @@ function App() {
       {/* Featured Products */}
       <section id="featured">
         <div className="section-header">
-          <div className="section-tag">Our Picks</div>
-          <h2 className="section-title">Featured Products</h2>
+          <div className="section-tag">Shop</div>
+          <h2 className="section-title">Toy Picks</h2>
           <p className="section-subtitle">Direct Amazon affiliate picks chosen for fun, connection, and play time that dads and daughters can share</p>
         </div>
         <div className="products-grid">
@@ -159,8 +159,8 @@ function App() {
       {/* Trending This Week */}
       <section id="trending">
         <div className="section-header">
-          <div className="section-tag">Hot Right Now</div>
-          <h2 className="section-title">Trending This Week</h2>
+          <div className="section-tag">Browse</div>
+          <h2 className="section-title">More Toy Picks</h2>
           <p className="section-subtitle">Trending Amazon affiliate picks that open directly on Amazon</p>
         </div>
         <div className="trending-scroll">
@@ -214,7 +214,7 @@ function App() {
         <div className="section-header">
           <div className="section-tag">Bonding Time</div>
           <h2 className="section-title">Dad + Daughter Picks</h2>
-          <p className="section-subtitle">Curated toys that make it easier to laugh, build, imagine, and play together</p>
+          <p className="section-subtitle">Toy ideas that make it easier to laugh, build, imagine, and play together</p>
         </div>
         <div className="products-grid">
           {dadDaughterPicks.map(product => (
@@ -269,8 +269,8 @@ function App() {
       <section id="categories">
         <div className="section-header">
           <div className="section-tag">Browse by Category</div>
-          <h2 className="section-title">Find Your Perfect Toy</h2>
-          <p className="section-subtitle">Explore our carefully curated collections</p>
+          <h2 className="section-title">Browse by Category</h2>
+          <p className="section-subtitle">Explore toy categories and play styles</p>
         </div>
         <div className="categories-grid">
           {categories.map((cat, idx) => (
@@ -285,11 +285,11 @@ function App() {
       {/* About / Why Us */}
       <section id="about">
         <div className="section-header">
-          <div className="section-tag">Why Choose Us</div>
+          <div className="section-tag">About</div>
           <h2 className="section-title">Why SunMoonOcean</h2>
           <p className="section-subtitle">Built around a simple belief: the right toy can create the right moment between a dad and his daughter</p>
         </div>
-        <div className="mission-note">SunMoonOcean was built by a parent who believes the best gift is not just the toy itself — it's the shared laugh, the living-room adventure, and the little ritual of dads showing up to play with their daughters.</div>
+        <div className="mission-note">SunMoonOcean shares Amazon affiliate toy links with a focus on products that can help dads and daughters spend time playing together.</div>
         <div className="why-grid">
           <div className="why-card">
             <div className="why-emoji">🎯</div>
