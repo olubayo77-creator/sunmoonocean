@@ -10,9 +10,13 @@ export const products = [
     tags: ["amazon-pick", "ages-8-16", "dad-daughter-pick"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "✈️", bg: "#4169E1" },
+    image: {
+      src: "https://m.media-amazon.com/images/I/71aoSLP+5aL._AC_SL1500_.jpg",
+      alt: "MSKOLER Foam Remote Control Airplane",
+      bg: "#4169E1"
+    },
     description: "2.4 GHz RC Plane with Colorful Lights, 360° Flips & Stunt Roll. For kids ages 8-16, boys and girls.",
-    amazonUrl: "https://amzn.to/4wK9tiv",
+    amazonUrl: "https://www.amazon.com/MSKOLER-Remote-Control-Airplane-Colorful/dp/B0F4XKJS8G?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
   },
   {
