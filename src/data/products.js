@@ -192,7 +192,29 @@ export const products = [
     isFeatured: true,
     image: { emoji: "✈️", bg: "#4169E1" },
     description: "2.4 GHz RC Plane with Colorful Lights, 360° Flips & Stunt Roll. For kids ages 8-16, boys and girls.",
-    amazonUrl: "https://www.amazon.com/dp/B0F4XKJS8G?tag=sunmoonocean-20",
+    amazonUrl: "https://amzn.to/4wK9tiv",
     amazonBtnText: "View on Amazon"
   }
+  ,
+  {
+    id: 14,
+    name: "Stickerbox Voice Powered Mini Sticker Maker",
+    price: 29.99,
+    originalPrice: null,
+    rating: 4.4,
+    reviewCount: 87,
+    category: "Arts & Crafts",
+    tags: ["new", "amazon-pick", "ages-6+"],
+    isTrending: true,
+    isFeatured: true,
+    image: {
+      src: "https://m.media-amazon.com/images/I/71KK0j+VnBL._AC_SL1500_.jpg",
+      alt: "Stickerbox Voice Powered Mini Sticker Maker",
+      bg: "#FF9F68"
+    },
+    description: "Voice-powered mini sticker maker for quick custom sticker fun. Direct Amazon affiliate link.",
+    amazonUrl: "https://www.amazon.com/dp/B0G3XGR2G6?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
+  }
+
 ]

@@ -191,15 +191,7 @@ function App() {
                     <span>Total:</span>
                     <span>{formatCurrency(cartTotal)}</span>
                   </div>
-                  <p className="cart-note">Free shipping on orders over $35!</p>
-                  <a 
-                    href={`https://www.amazon.com/gp/cart/view.html?tag=sunmoonocean-20`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="checkout-btn"
-                  >
-                    Checkout on Amazon 🛒
-                  </a>
+                  <p className="cart-note">Amazon products open directly on Amazon in a new tab.</p>
                 </div>
               </>
             )}
@@ -269,7 +261,20 @@ function App() {
                 {product.isTrending && (
                   <span className="trending-badge">🔥 Trending</span>
                 )}
-                <span>{product.image.emoji}</span>
+                {product.image.src ? (
+                  <img
+                    src={product.image.src}
+                    alt={product.image.alt || product.name}
+                    className="product-photo"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      const fallback = e.currentTarget.parentElement.querySelector('.product-emoji-fallback')
+                      if (fallback) fallback.style.display = 'block'
+                    }}
+                  />
+                ) : null}
+                <span className="product-emoji-fallback" style={{ display: product.image.src ? 'none' : 'block' }}>{product.image.emoji || '🛍️'}</span>
               </div>
               <div className="product-info">
                 <div className="product-name">{product.name}</div>
@@ -315,7 +320,20 @@ function App() {
             <div className="product-card" key={product.id}>
               <div className="product-image" style={{ background: product.image.bg }}>
                 <span className="trending-badge">🔥 Trending</span>
-                <span>{product.image.emoji}</span>
+                {product.image.src ? (
+                  <img
+                    src={product.image.src}
+                    alt={product.image.alt || product.name}
+                    className="product-photo"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      const fallback = e.currentTarget.parentElement.querySelector('.product-emoji-fallback')
+                      if (fallback) fallback.style.display = 'block'
+                    }}
+                  />
+                ) : null}
+                <span className="product-emoji-fallback" style={{ display: product.image.src ? 'none' : 'block' }}>{product.image.emoji || '🛍️'}</span>
               </div>
               <div className="product-info">
                 <div className="product-name">{product.name}</div>
@@ -390,7 +408,7 @@ function App() {
               <span className="amazon-rating">⭐ 4.1</span> · 145 reviews
             </p>
             <a 
-              href="https://www.amazon.com/dp/B0F4XKJS8G?tag=sunmoonocean-20"
+              href="https://amzn.to/4wK9tiv"
               target="_blank"
               rel="noopener noreferrer"
               className="amazon-btn-large"
