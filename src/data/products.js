@@ -66,5 +66,21 @@ export const products = [
     description: "Transforming unicorn car toy with direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0CL2LC3SC?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 17,
+    name: "Wdebay Electric Anti-Gravity Track Car",
+    price: 36.99,
+    originalPrice: null,
+    rating: 4.1,
+    reviewCount: 39,
+    category: "STEM Toys",
+    tags: ["new", "amazon-pick", "ages-5+"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🚗", bg: "#34D399" },
+    description: "Electric anti-gravity track car educational toy with direct Amazon affiliate link.",
+    amazonUrl: "https://www.amazon.com/dp/B0FZ9Z5JL1?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
