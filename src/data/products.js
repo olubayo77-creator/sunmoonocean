@@ -114,5 +114,21 @@ export const products = [
     description: "Colorful dinosaur climbing car ramp construction toy for playful learning and shared fun.",
     amazonUrl: "https://www.amazon.com/dp/B09MQJ3NBW?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 20,
+    name: "Kiditos Magic Water Elf Toy Kit",
+    price: 19.99,
+    originalPrice: null,
+    rating: 4.3,
+    reviewCount: 76,
+    category: "Arts & Crafts",
+    tags: ["new", "amazon-pick", "ages-4+", "dad-daughter-pick"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🪄", bg: "#38BDF8" },
+    description: "Magic Water Elf toy kit for colorful creative play and hands-on parent-child fun.",
+    amazonUrl: "https://www.amazon.com/dp/B0CRHCJDPH?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
