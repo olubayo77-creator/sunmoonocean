@@ -90,9 +90,13 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-5+"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🚗", bg: "#34D399" },
+    image: {
+      src: "/products/gravity_car.jpg",
+      alt: "Wdebay Electric Anti-Gravity Track Car",
+      bg: "#34D399"
+    },
     description: "Electric anti-gravity track car educational toy with direct Amazon affiliate link.",
-    amazonUrl: "https://www.amazon.com/dp/B0FZ9Z5JL1?tag=sunmoonocean-20",
+    amazonUrl: "https://www.amazon.com/dp/B0FZ9Z5JL1?th=1&linkCode=ll2&tag=sunmoonocean-20&linkId=6f821316135291e2fde1038c216dd3e2&language=en_US&ref_=as_li_ss_tl",
     amazonBtnText: "View on Amazon"
   },
   {
