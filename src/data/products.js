@@ -34,5 +34,21 @@ export const products = [
     description: "Voice-powered mini sticker maker for quick custom sticker fun. Direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0G3XGR2G6?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 15,
+    name: "ZipString Aracna Glow-in-the-Dark Webshooter",
+    price: 34.99,
+    originalPrice: null,
+    rating: 4.3,
+    reviewCount: 63,
+    category: "STEM Toys",
+    tags: ["new", "amazon-pick", "ages-8+"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🕸️", bg: "#2F3B52" },
+    description: "Glow-in-the-dark ZipString webshooter-style toy with direct Amazon affiliate link.",
+    amazonUrl: "https://www.amazon.com/dp/B0FQLK994V?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
