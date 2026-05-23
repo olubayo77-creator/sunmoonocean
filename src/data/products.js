@@ -31,12 +31,12 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71KK0j%2BVnBL._AC_SL1500_.jpg",
+      src: "/products/sticker_box.jpg",
       alt: "Stickerbox Voice Powered Mini Sticker Maker",
       bg: "#FF9F68"
     },
     description: "Voice-powered mini sticker maker for quick custom sticker fun. Direct Amazon affiliate link.",
-    amazonUrl: "https://www.amazon.com/dp/B0G3XGR2G6?tag=sunmoonocean-20",
+    amazonUrl: "https://www.amazon.com/dp/B0G3XGR2G6?&linkCode=ll2&tag=sunmoonocean-20&linkId=4dbbcb2c31e5710472358591d2cd1048&language=en_US&ref_=as_li_ss_tl",
     amazonBtnText: "View on Amazon"
   },
   {
