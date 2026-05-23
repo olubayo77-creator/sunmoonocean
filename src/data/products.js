@@ -50,7 +50,11 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-8+"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🕸️", bg: "#2F3B52" },
+    image: {
+      src: "/products/zip_string_arcana.jpg",
+      alt: "ZipString Aracna Glow-in-the-Dark Webshooter",
+      bg: "#2F3B52"
+    },
     description: "Glow-in-the-dark ZipString webshooter-style toy with direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0FQLK994V?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
