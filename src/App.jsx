@@ -1,23 +1,12 @@
-import { useState } from 'react'
 import { products } from './data/products'
 import './App.css'
 
 function App() {
-  const [activeAdminTab, setActiveAdminTab] = useState('Trend Research')
-  const [isResearchRunning, setIsResearchRunning] = useState(false)
-
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
-  }
-
-  const runResearch = () => {
-    setIsResearchRunning(true)
-    setTimeout(() => {
-      setIsResearchRunning(false)
-    }, 2000)
   }
 
   const featuredProducts = products.filter(p => p.isFeatured)
@@ -293,105 +282,6 @@ function App() {
         </div>
       </section>
 
-      {/* Viral Products Admin Panel */}
-      <section id="admin">
-        <div className="section-header">
-          <div className="section-tag">Store Dashboard</div>
-          <h2 className="section-title">Viral Products Admin Panel</h2>
-          <p className="section-subtitle">Track trends, manage inventory, and research what's next</p>
-        </div>
-        <div className="admin-panel">
-          <div className="admin-tabs">
-            {['Trend Research', 'Product Pipeline', 'Store Stats'].map(tab => (
-              <button
-                key={tab}
-                className={`admin-tab ${activeAdminTab === tab ? 'active' : ''}`}
-                onClick={() => setActiveAdminTab(tab)}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {activeAdminTab === 'Trend Research' && (
-            <div>
-              <div className="admin-stats-grid">
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">🔥 4</div>
-                  <div className="admin-stat-label">Viral Products</div>
-                </div>
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">📈 +23%</div>
-                  <div className="admin-stat-label">Trend Growth</div>
-                </div>
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">🎯 87</div>
-                  <div className="admin-stat-label">Trend Score</div>
-                </div>
-              </div>
-              <button
-                className="run-research-btn"
-                onClick={runResearch}
-                disabled={isResearchRunning}
-              >
-                {isResearchRunning ? '🔄 Running Research...' : '🔍 Run Trend Research'}
-              </button>
-            </div>
-          )}
-
-          {activeAdminTab === 'Product Pipeline' && (
-            <div>
-              <table className="admin-table">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Trending Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.slice(0, 5).map(p => (
-                    <tr key={p.id}>
-                      <td>{p.name}</td>
-                      <td>{p.category}</td>
-                      <td>{p.isTrending ? '✅ Active' : '⏳ Pending'}</td>
-                      <td>
-                        <div className="score-bar">
-                          <div
-                            className="score-fill"
-                            style={{ width: `${p.rating * 20}%` }}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {activeAdminTab === 'Store Stats' && (
-            <div>
-              <div className="admin-stats-grid">
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">{products.length}</div>
-                  <div className="admin-stat-label">Total Products</div>
-                </div>
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">12</div>
-                  <div className="admin-stat-label">Pending Reviews</div>
-                </div>
-                <div className="admin-stat-card">
-                  <div className="admin-stat-value">4.7</div>
-                  <div className="admin-stat-label">Avg Rating</div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* About / Why Us */}
       <section id="about">
         <div className="section-header">
@@ -444,18 +334,9 @@ function App() {
             <a href="https://www.amazon.com/gp/css/order-history" target="_blank" rel="noopener noreferrer">Order History</a>
             <a href="https://www.amazon.com/returns" target="_blank" rel="noopener noreferrer">Amazon Returns</a>
           </div>
-          <div className="footer-col">
-            <h4>Connect</h4>
-            <div className="footer-social">
-              <span>📸</span>
-              <span>🐦</span>
-              <span>📘</span>
-              <span>▶️</span>
-            </div>
-          </div>
         </div>
         <div className="footer-bottom">
-          Where play brings dads and daughters together. © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases. Product details, pricing, availability, shipping, and returns are handled by Amazon.
+          Where play brings dads and daughters together. © 2026 SunMoonOcean. All rights reserved. As an Amazon Associate we earn from qualifying purchases. SunMoonOcean curates and links to products sold on Amazon, and Amazon is responsible for product details, pricing, availability, shipping, returns, and fulfillment.
         </div>
       </footer>
     </div>
