@@ -70,9 +70,13 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-4+", "dad-daughter-pick"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🦄", bg: "#C084FC" },
+    image: {
+      src: "/products/unicorn.jpg",
+      alt: "SOYUOI Ultimate Transforming Unicorn Car",
+      bg: "#C084FC"
+    },
     description: "Transforming unicorn car toy with direct Amazon affiliate link.",
-    amazonUrl: "https://www.amazon.com/dp/B0CL2LC3SC?tag=sunmoonocean-20",
+    amazonUrl: "https://www.amazon.com/dp/B0CL2LC3SC?th=1&linkCode=ll2&tag=sunmoonocean-20&linkId=5dc9a896915f5c0456dc3ce65d69dac6&language=en_US&ref_=as_li_ss_tl",
     amazonBtnText: "View on Amazon"
   },
   {
