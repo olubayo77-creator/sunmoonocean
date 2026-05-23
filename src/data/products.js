@@ -122,9 +122,13 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-3+", "dad-daughter-pick"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🦕", bg: "#F59E0B" },
+    image: {
+      src: "/products/dino_track.jpg",
+      alt: "Dinosaur Climbing Car Ramp Toy",
+      bg: "#F59E0B"
+    },
     description: "Colorful dinosaur climbing car ramp construction toy for playful learning and shared fun.",
-    amazonUrl: "https://www.amazon.com/dp/B09MQJ3NBW?tag=sunmoonocean-20",
+    amazonUrl: "https://www.amazon.com/dp/B09MQJ3NBW?th=1&linkCode=ll2&tag=sunmoonocean-20&linkId=0aa8ad7ebf1faf24b44ad5df9fd18b06&language=en_US&ref_=as_li_ss_tl",
     amazonBtnText: "View on Amazon"
   },
   {
