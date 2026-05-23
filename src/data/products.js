@@ -82,5 +82,21 @@ export const products = [
     description: "Electric anti-gravity track car educational toy with direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0FZ9Z5JL1?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
+  },
+  {
+    id: 18,
+    name: "Nex Playground Active Play System",
+    price: 189.99,
+    originalPrice: null,
+    rating: 4.5,
+    reviewCount: 28,
+    category: "STEM Toys",
+    tags: ["new", "amazon-pick", "ages-5+", "dad-daughter-pick"],
+    isTrending: true,
+    isFeatured: true,
+    image: { emoji: "🎮", bg: "#60A5FA" },
+    description: "Active play system for energetic family game time with a direct Amazon affiliate link.",
+    amazonUrl: "https://www.amazon.com/dp/B0D2JGYX3F?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
   }
 ]
