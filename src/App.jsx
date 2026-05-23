@@ -384,41 +384,6 @@ function App() {
         </div>
       </section>
 
-      {/* Amazon Spotlight */}
-      <section id="amazon-spotlight">
-        <div className="section-header">
-          <div className="section-tag">Amazon Pick</div>
-          <h2 className="section-title">MSKOLER Foam Remote Control Airplane</h2>
-          <p className="section-subtitle">Featured Amazon affiliate product</p>
-        </div>
-        <div className="amazon-spotlight-card">
-          <div className="amazon-spotlight-image">
-            <img 
-              src="https://m.media-amazon.com/images/I/71qhF2HHQzL._AC_SL1500_.jpg" 
-              alt="MSKOLER Foam Remote Control Airplane"
-              loading="lazy"
-              onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '✈️'; }}
-            />
-          </div>
-          <div className="amazon-spotlight-info">
-            <h3>MSKOLER Foam Remote Control Airplane</h3>
-            <p className="amazon-spotlight-desc">
-              2.4 GHz RC Plane with Colorful Lights, 360° Flips & Stunt Roll. 
-              For kids ages 8-16, boys and girls. 
-              <span className="amazon-rating">⭐ 4.1</span> · 145 reviews
-            </p>
-            <a 
-              href="https://amzn.to/4wK9tiv"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="amazon-btn-large"
-            >
-              View on Amazon 🛒
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* Viral Products Admin Panel */}
       <section id="admin">
         <div className="section-header">
