@@ -146,9 +146,13 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-4+", "dad-daughter-pick"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🪄", bg: "#38BDF8" },
+    image: {
+      src: "/products/water_elf.jpg",
+      alt: "Kiditos Magic Water Elf Toy Kit",
+      bg: "#38BDF8"
+    },
     description: "Magic Water Elf toy kit for colorful creative play and hands-on parent-child fun.",
-    amazonUrl: "https://www.amazon.com/dp/B0CRHCJDPH?tag=sunmoonocean-20",
+    amazonUrl: "https://www.amazon.com/dp/B0CRHCJDPH?&linkCode=ll2&tag=sunmoonocean-20&linkId=82e81b8755348b69eb2e7b9714d903d3&language=en_US&ref_=as_li_ss_tl",
     amazonBtnText: "View on Amazon"
   }
   ,{
