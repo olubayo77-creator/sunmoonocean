@@ -11,7 +11,7 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71aoSLP+5aL._AC_SL1500_.jpg",
+      src: "https://m.media-amazon.com/images/I/71aoSLP%2B5aL._AC_SL1500_.jpg",
       alt: "MSKOLER Foam Remote Control Airplane",
       bg: "#4169E1"
     },
@@ -31,7 +31,7 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71KK0j+VnBL._AC_SL1500_.jpg",
+      src: "https://m.media-amazon.com/images/I/71KK0j%2BVnBL._AC_SL1500_.jpg",
       alt: "Stickerbox Voice Powered Mini Sticker Maker",
       bg: "#FF9F68"
     },
@@ -99,7 +99,7 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71slhK8R+XL._AC_SL1500_.jpg",
+      src: "https://m.media-amazon.com/images/I/71slhK8R%2BXL._AC_SL1500_.jpg",
       alt: "Nex Playground Active Play System",
       bg: "#60A5FA"
     },
