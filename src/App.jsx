@@ -9,18 +9,8 @@ function App() {
     }
   }
 
-  const featuredProducts = products.filter(p => p.isFeatured)
-  const trendingProducts = products.filter(p => p.isTrending)
+  const featuredProducts = products
   const dadDaughterPicks = products.filter(p => p.tags?.includes('dad-daughter-pick'))
-
-  const categories = [
-    { emoji: '🔬', name: 'STEM Toys' },
-    { emoji: '🌳', name: 'Outdoor Play' },
-    { emoji: '🎨', name: 'Arts & Crafts' },
-    { emoji: '🧩', name: 'Games & Puzzles' },
-    { emoji: '🍼', name: 'Baby & Toddler' },
-    { emoji: '🎭', name: 'Dress Up & Role Play' }
-  ]
 
   const formatCurrency = (num) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num)
@@ -38,7 +28,7 @@ function App() {
           </div>
           <div className="nav-links">
             <a onClick={() => scrollToSection('featured')}>Shop</a>
-            <a onClick={() => scrollToSection('trending')}>Trending</a>
+            <a onClick={() => scrollToSection('dad-daughter-picks')}>Dad + Daughter Picks</a>
             <a onClick={() => scrollToSection('about')}>About</a>
             <a onClick={() => scrollToSection('footer')}>Contact</a>
           </div>
@@ -77,8 +67,8 @@ function App() {
             <button className="btn-primary" onClick={() => scrollToSection('featured')}>
               🛍️ Shop Now
             </button>
-            <button className="btn-secondary" onClick={() => scrollToSection('trending')}>
-              🔥 See What's Trending
+            <button className="btn-secondary" onClick={() => scrollToSection('dad-daughter-picks')}>
+              🎯 See Dad + Daughter Picks
             </button>
           </div>
           <div className="hero-stats">
@@ -104,6 +94,7 @@ function App() {
           <div className="section-tag">Shop</div>
           <h2 className="section-title">Toy Picks</h2>
           <p className="section-subtitle">Direct Amazon affiliate picks chosen for fun, connection, and play time that dads and daughters can share</p>
+          <p className="section-subtitle">Disclosure: product links on this site are Amazon affiliate links, and we may earn from qualifying purchases.</p>
         </div>
         <div className="products-grid">
           {featuredProducts.map(product => (
@@ -142,59 +133,6 @@ function App() {
                 {product.tags?.includes('dad-daughter-pick') && (
                   <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
                 )}
-                <a
-                  href={product.amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="amazon-btn"
-                >
-                  {product.amazonBtnText || 'View on Amazon'}
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Trending This Week */}
-      <section id="trending">
-        <div className="section-header">
-          <div className="section-tag">Browse</div>
-          <h2 className="section-title">More Toy Picks</h2>
-          <p className="section-subtitle">Trending Amazon affiliate picks that open directly on Amazon</p>
-        </div>
-        <div className="trending-scroll">
-          {trendingProducts.map(product => (
-            <div className="product-card" key={product.id}>
-              <div className="product-image" style={{ background: product.image.bg }}>
-                <span className="trending-badge">🔥 Trending</span>
-                {product.image.src ? (
-                  <img
-                    src={product.image.src}
-                    alt={product.image.alt || product.name}
-                    className="product-photo"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      const fallback = e.currentTarget.parentElement.querySelector('.product-emoji-fallback')
-                      if (fallback) fallback.style.display = 'block'
-                    }}
-                  />
-                ) : null}
-                <span className="product-emoji-fallback" style={{ display: product.image.src ? 'none' : 'block' }}>{product.image.emoji || '🛍️'}</span>
-              </div>
-              <div className="product-info">
-                <div className="product-name">{product.name}</div>
-                <div className="product-meta">
-                  <span className="product-rating">⭐ {product.rating}</span>
-                  <span className="product-reviews">({product.reviewCount})</span>
-                </div>
-                <div className="product-price-row">
-                  <span className="product-price">{formatCurrency(product.price)}</span>
-                  {product.originalPrice && (
-                    <span className="product-original">{formatCurrency(product.originalPrice)}</span>
-                  )}
-                </div>
                 <a
                   href={product.amazonUrl}
                   target="_blank"
@@ -265,23 +203,6 @@ function App() {
         </div>
       </section>
 
-      {/* Categories */}
-      <section id="categories">
-        <div className="section-header">
-          <div className="section-tag">Browse by Category</div>
-          <h2 className="section-title">Browse by Category</h2>
-          <p className="section-subtitle">Explore toy categories and play styles</p>
-        </div>
-        <div className="categories-grid">
-          {categories.map((cat, idx) => (
-            <div className="category-card" key={idx}>
-              <div className="category-emoji">{cat.emoji}</div>
-              <div className="category-name">{cat.name}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* About / Why Us */}
       <section id="about">
         <div className="section-header">
@@ -320,8 +241,7 @@ function App() {
           <div className="footer-col">
             <h4>Shop</h4>
             <a onClick={() => scrollToSection('featured')}>All Products</a>
-            <a onClick={() => scrollToSection('trending')}>Trending</a>
-            <a onClick={() => scrollToSection('categories')}>Categories</a>
+            <a onClick={() => scrollToSection('dad-daughter-picks')}>Dad + Daughter Picks</a>
             <a href="https://www.amazon.com/gp/search?ie=UTF8&tag=sunmoonocean-20&index=toys-and-games&keywords=kids+toys" target="_blank" rel="noopener noreferrer">Amazon Store</a>
           </div>
           <div className="footer-col">
