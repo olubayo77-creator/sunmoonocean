@@ -139,4 +139,24 @@ export const products = [
     amazonUrl: "https://www.amazon.com/dp/B0CRHCJDPH?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
   }
+  ,{
+    id: 21,
+    name: "VTech 3-in-1 Race and Learn",
+    price: 34.99,
+    originalPrice: null,
+    rating: 4.7,
+    reviewCount: 18961,
+    category: "Baby & Toddler",
+    tags: ["amazon-pick", "ages-12m+", "dad-daughter-pick"],
+    isTrending: true,
+    isFeatured: true,
+    image: {
+      src: "/products/vtech_3in1.jpg",
+      alt: "VTech 3-in-1 Race and Learn",
+      bg: "#6EE7B7"
+    },
+    description: "Interactive 3-in-1 steering wheel toy for little learners with sounds, buttons, and pretend driving play.",
+    amazonUrl: "https://www.amazon.com/VTech-3-in-1-Race-and-Learn/dp/B00CS16KSU?tag=sunmoonocean-20",
+    amazonBtnText: "View on Amazon"
+  }
 ]
