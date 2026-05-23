@@ -6,12 +6,12 @@
   --coral: #FF6B6B;
   --teal: #4ECDC4;
   --sand: #F7DC6F;
-  --sky: #87CEEB;
-  --navy: #2C3E50;
+  --sky: #5FA8FF;
+  --navy: #1F3A66;
   --white: #FFFFFF;
   --cream: #FFF9F0;
-  --text: #2C3E50;
-  --text-light: #5A6B7C;
+  --text: #203A63;
+  --text-light: #4E6485;
   --border: rgba(44, 62, 80, 0.1);
   --shadow: 0 4px 20px rgba(44, 62, 80, 0.08);
   --shadow-hover: 0 12px 40px rgba(44, 62, 80, 0.15);
@@ -1150,4 +1150,28 @@ section {
   font-size: 1.05rem;
   line-height: 1.7;
   color: var(--text);
+}
+
+
+@media (max-width: 768px) {
+  body {
+    color: var(--text);
+  }
+
+  .hero-title,
+  .section-title,
+  .product-name,
+  .why-title,
+  .footer-col h4 {
+    color: var(--navy);
+  }
+
+  .hero-subtitle,
+  .section-subtitle,
+  .why-desc,
+  .mission-note,
+  .product-reviews,
+  .footer-bottom {
+    color: var(--text-light);
+  }
 }

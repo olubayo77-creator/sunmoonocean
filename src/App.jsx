@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { products } from './data/products'
 import './App.css'
 
@@ -11,24 +11,13 @@ function App() {
     }
   })
   const [cartOpen, setCartOpen] = useState(false)
-  const [chatMessages, setChatMessages] = useState([
-    { role: 'assistant', content: "Hi there! 🧸 I'm your Toy Expert AI. Looking for the perfect gift? Ask me about age recommendations, trending toys, or anything else!" }
-  ])
-  const [chatInput, setChatInput] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
   const [activeAdminTab, setActiveAdminTab] = useState('Trend Research')
-  const [newsletterEmail, setNewsletterEmail] = useState('')
-  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false)
   const [isResearchRunning, setIsResearchRunning] = useState(false)
-  const chatEndRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('smo-cart', JSON.stringify(cart))
   }, [cart])
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [chatMessages, isTyping])
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -65,41 +54,7 @@ function App() {
     }
   }
 
-  const sendQuickQuestion = (question) => {
-    handleChatSubmit(null, question)
-  }
 
-  const handleChatSubmit = async (e, quickQuestion = null) => {
-    if (e) e.preventDefault()
-    const message = quickQuestion || chatInput
-    if (!message.trim()) return
-
-    const userMessage = { role: 'user', content: message }
-    setChatMessages(prev => [...prev, userMessage])
-    setChatInput('')
-    setIsTyping(true)
-
-    setTimeout(() => {
-      const responses = {
-        'What\'s trending for ages 5-7?': 'For ages 5-7, our hottest picks right now are the 3D Dinosaur Puzzle (viral on TikTok!) and the Princess & Knight Costume Box. Both encourage imaginative play and fine motor skills! 🎭',
-        'Best STEM toys for 8-year-olds?': 'Our Junior Scientist Lab Kit is flying off the shelves! It has 50 real experiments and perfect for curious 8-year-olds. The Cosmic Rocket Set is also a huge hit! 🚀',
-        'What\'s a good gift for a toddler?': 'For toddlers, I recommend our Organic Cotton Sleep Bear (so soft and hypoallergenic!) or the Montessori Sensory Blocks which help with color recognition and motor skills. 🧸',
-        'Do you have free shipping?': 'Yes! We offer free shipping on all orders over $35. Plus, orders placed before 3pm ship the same day! 🚚'
-      }
-      
-      const aiResponse = responses[message] || 
-        "That's a great question! I'm here to help you find the perfect toy. Would you like me to suggest something based on age, interest, or budget? Just let me know! 🎁"
-      
-      setChatMessages(prev => [...prev, { role: 'assistant', content: aiResponse }])
-      setIsTyping(false)
-    }, 1200)
-  }
-
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault()
-    if (!newsletterEmail) return
-    setNewsletterSubmitted(true)
-  }
 
   const runResearch = () => {
     setIsResearchRunning(true)
@@ -572,86 +527,6 @@ function App() {
             <div className="why-title">Easy Returns</div>
             <div className="why-desc">30-day hassle-free returns. Not happy? We make it right.</div>
           </div>
-        </div>
-      </section>
-
-      {/* AI Advisor Section */}
-      <section id="advisor">
-        <div className="section-header">
-          <div className="section-tag">Toy Expert AI</div>
-          <h2 className="section-title">Ask Me Anything!</h2>
-          <p className="section-subtitle">Get personalized toy recommendations from our AI assistant</p>
-        </div>
-        <div className="advisor-section">
-          <div className="quick-questions">
-            <button onClick={() => sendQuickQuestion("What's trending for ages 5-7?")}>
-              What's trending for ages 5-7?
-            </button>
-            <button onClick={() => sendQuickQuestion("Best STEM toys for 8-year-olds?")}>
-              Best STEM toys for 8-year-olds?
-            </button>
-            <button onClick={() => sendQuickQuestion("What's a good gift for a toddler?")}>
-              What's a good gift for a toddler?
-            </button>
-            <button onClick={() => sendQuickQuestion("Do you have free shipping?")}>
-              Do you have free shipping?
-            </button>
-          </div>
-
-          <div className="chat-container">
-            <div className="chat-messages">
-              {chatMessages.map((msg, i) => (
-                <div key={i} className={`chat-message ${msg.role}`}>
-                  <div className="chat-avatar">{msg.role === 'assistant' ? '🧸' : '👤'}</div>
-                  <div className="chat-bubble">{msg.content}</div>
-                </div>
-              ))}
-              {isTyping && (
-                <div className="chat-message assistant">
-                  <div className="chat-avatar">🧸</div>
-                  <div className="chat-bubble typing">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-              )}
-              <div ref={chatEndRef} />
-            </div>
-            <form className="chat-input-area" onSubmit={handleChatSubmit}>
-              <input
-                type="text"
-                placeholder="Ask me about toys, ages, or gifts..."
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-              />
-              <button type="submit">Send</button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section id="newsletter">
-        <div className="newsletter-content">
-          <h2 className="newsletter-title">Get 10% Off Your First Order</h2>
-          <p className="newsletter-subtitle">Join our newsletter for exclusive deals, new arrivals, and parenting tips.</p>
-          {newsletterSubmitted ? (
-            <div className="newsletter-success">
-              🎉 Thanks for subscribing! Check your inbox for your 10% off code.
-            </div>
-          ) : (
-            <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="btn-primary">Subscribe</button>
-            </form>
-          )}
         </div>
       </section>
 
