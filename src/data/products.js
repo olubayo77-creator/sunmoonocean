@@ -11,7 +11,7 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71aoSLP%2B5aL._AC_SL1500_.jpg",
+      src: "/products/foam_plane.jpg",
       alt: "MSKOLER Foam Remote Control Airplane",
       bg: "#4169E1"
     },
@@ -99,7 +99,7 @@ export const products = [
     isTrending: true,
     isFeatured: true,
     image: {
-      src: "https://m.media-amazon.com/images/I/71slhK8R%2BXL._AC_SL1500_.jpg",
+      src: "/products/nex.jpg",
       alt: "Nex Playground Active Play System",
       bg: "#60A5FA"
     },
