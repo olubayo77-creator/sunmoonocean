@@ -83,8 +83,8 @@ h1, h2, h3, h4 {
 }
 
 .logo .brand-coral { color: var(--coral); }
-.logo .brand-teal { color: var(--sand); }
-.logo .brand-sand { color: var(--sand); }
+.logo .brand-teal { color: #f4cf5a; text-shadow: none; -webkit-text-stroke: 0; }
+.logo .brand-sand { color: #f0cf63; }
 
 .nav-links {
   display: flex;
