@@ -98,7 +98,11 @@ export const products = [
     tags: ["new", "amazon-pick", "ages-5+", "dad-daughter-pick"],
     isTrending: true,
     isFeatured: true,
-    image: { emoji: "🎮", bg: "#60A5FA" },
+    image: {
+      src: "https://m.media-amazon.com/images/I/71slhK8R+XL._AC_SL1500_.jpg",
+      alt: "Nex Playground Active Play System",
+      bg: "#60A5FA"
+    },
     description: "Active play system for energetic family game time with a direct Amazon affiliate link.",
     amazonUrl: "https://www.amazon.com/dp/B0D2JGYX3F?tag=sunmoonocean-20",
     amazonBtnText: "View on Amazon"
