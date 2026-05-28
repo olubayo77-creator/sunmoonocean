@@ -1,7 +1,11 @@
+import { useEffect, useMemo } from 'react'
 import { products } from './data/products'
+import { blogPosts } from './data/blogPosts'
 import './App.css'
 
 function App() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/'
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
@@ -16,9 +20,126 @@ function App() {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num)
   }
 
+  const currentPost = useMemo(() => {
+    if (!path.startsWith('/blog/')) return null
+    const slug = path.replace('/blog/', '')
+    return blogPosts.find(post => post.slug === slug) || null
+  }, [path])
+
+  useEffect(() => {
+    if (currentPost) {
+      document.title = currentPost.metaTitle
+      const desc = document.querySelector('meta[name="description"]') || document.createElement('meta')
+      desc.setAttribute('name', 'description')
+      desc.setAttribute('content', currentPost.metaDescription)
+      if (!desc.parentNode) document.head.appendChild(desc)
+      return
+    }
+
+    if (path === '/blog') {
+      document.title = 'Dad Blog | SunMoonOcean'
+      const desc = document.querySelector('meta[name="description"]') || document.createElement('meta')
+      desc.setAttribute('name', 'description')
+      desc.setAttribute('content', 'Dad Blog from SunMoonOcean with dad and daughter activities, gift ideas, and best toys for dads and daughters.')
+      if (!desc.parentNode) document.head.appendChild(desc)
+      return
+    }
+
+    document.title = 'SunMoonOcean | Where Play Goes Viral'
+  }, [path, currentPost])
+
+  const BlogNav = () => (
+    <a href="/blog">Dad Blog</a>
+  )
+
+  if (currentPost) {
+    return (
+      <div className="app blog-app">
+        <nav className="navbar">
+          <div className="nav-container">
+            <a className="logo" href="/">
+              <span className="brand-coral">Sun</span>
+              <span className="brand-teal">Moon</span>
+              <span className="brand-sand">Ocean</span>
+            </a>
+            <div className="nav-links">
+              <a href="/">Shop</a>
+              <a href="/">Dad + Daughter Picks</a>
+              <BlogNav />
+            </div>
+          </div>
+        </nav>
+
+        <main className="blog-shell">
+          <div className="blog-hero">
+            <div className="section-tag">Dad Blog</div>
+            <h1 className="blog-post-title">{currentPost.title}</h1>
+            <p className="blog-post-date">{currentPost.date}</p>
+          </div>
+
+          <article className="blog-post-content card-surface">
+            <div dangerouslySetInnerHTML={{ __html: currentPost.content }} />
+            <div className="blog-disclosure">As an Amazon Associate I earn from qualifying purchases.</div>
+            <div className="blog-post-actions">
+              <a href="/blog" className="btn-secondary blog-link-btn">← Back to Dad Blog</a>
+              <a href="/" className="btn-primary blog-link-btn">Shop SunMoonOcean</a>
+            </div>
+          </article>
+        </main>
+      </div>
+    )
+  }
+
+  if (path === '/blog') {
+    return (
+      <div className="app blog-app">
+        <nav className="navbar">
+          <div className="nav-container">
+            <a className="logo" href="/">
+              <span className="brand-coral">Sun</span>
+              <span className="brand-teal">Moon</span>
+              <span className="brand-sand">Ocean</span>
+            </a>
+            <div className="nav-links">
+              <a href="/">Shop</a>
+              <a href="/">Dad + Daughter Picks</a>
+              <BlogNav />
+              <a href="/">About</a>
+            </div>
+            <div className="nav-actions">
+              <a className="nav-cta blog-nav-cta" href="/">Shop Now</a>
+            </div>
+          </div>
+        </nav>
+
+        <main className="blog-shell">
+          <section className="blog-hero">
+            <div className="hero-badge">📝 Stories from real dad + daughter play time</div>
+            <h1 className="section-title blog-page-title">Dad Blog</h1>
+            <p className="section-subtitle blog-page-subtitle">
+              Honest stories, toy picks, and simple ideas for dads who want more meaningful time with their daughters.
+            </p>
+          </section>
+
+          <section className="blog-list-section">
+            <div className="blog-grid">
+              {blogPosts.map(post => (
+                <article className="blog-card" key={post.slug}>
+                  <div className="blog-card-date">{post.date}</div>
+                  <h2 className="blog-card-title">{post.title}</h2>
+                  <p className="blog-card-preview">{post.preview}</p>
+                  <a href={`/blog/${post.slug}`} className="btn-primary blog-readmore">Read more</a>
+                </article>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
-      {/* Navigation */}
       <nav className="navbar">
         <div className="nav-container">
           <div className="logo" onClick={() => scrollToSection('hero')}>
@@ -29,6 +150,7 @@ function App() {
           <div className="nav-links">
             <a onClick={() => scrollToSection('featured')}>Shop</a>
             <a onClick={() => scrollToSection('dad-daughter-picks')}>Dad + Daughter Picks</a>
+            <a href="/blog">Dad Blog</a>
             <a onClick={() => scrollToSection('about')}>About</a>
             <a onClick={() => scrollToSection('footer')}>Contact</a>
           </div>
@@ -40,7 +162,6 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section id="hero" className="hero">
         <div className="hero-blobs">
           <div className="hero-blob"></div>
@@ -88,7 +209,6 @@ function App() {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section id="featured">
         <div className="section-header">
           <div className="section-tag">Shop</div>
@@ -133,12 +253,7 @@ function App() {
                 {product.tags?.includes('dad-daughter-pick') && (
                   <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
                 )}
-                <a
-                  href={product.amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="amazon-btn"
-                >
+                <a href={product.amazonUrl} target="_blank" rel="noopener noreferrer" className="amazon-btn">
                   {product.amazonBtnText || 'View on Amazon'}
                 </a>
               </div>
@@ -147,7 +262,6 @@ function App() {
         </div>
       </section>
 
-      {/* Dad + Daughter Picks */}
       <section id="dad-daughter-picks">
         <div className="section-header">
           <div className="section-tag">Bonding Time</div>
@@ -189,12 +303,7 @@ function App() {
                   )}
                 </div>
                 <div className="bonding-badge">🎯 Dad + Daughter Pick</div>
-                <a
-                  href={product.amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="amazon-btn"
-                >
+                <a href={product.amazonUrl} target="_blank" rel="noopener noreferrer" className="amazon-btn">
                   {product.amazonBtnText || 'View on Amazon'}
                 </a>
               </div>
@@ -203,7 +312,6 @@ function App() {
         </div>
       </section>
 
-      {/* About / Why Us */}
       <section id="about">
         <div className="section-header">
           <div className="section-tag">About</div>
@@ -235,13 +343,13 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer id="footer" className="footer">
         <div className="footer-grid">
           <div className="footer-col">
             <h4>Shop</h4>
             <a onClick={() => scrollToSection('featured')}>All Products</a>
             <a onClick={() => scrollToSection('dad-daughter-picks')}>Dad + Daughter Picks</a>
+            <a href="/blog">Dad Blog</a>
             <a href="https://www.amazon.com/gp/search?ie=UTF8&tag=sunmoonocean-20&index=toys-and-games&keywords=kids+toys" target="_blank" rel="noopener noreferrer">Amazon Store</a>
           </div>
           <div className="footer-col">
