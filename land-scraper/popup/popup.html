@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      min-height: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      color: #24292f;
+      background: #f6f8fa;
+    }
+    .header {
+      background: linear-gradient(135deg, #2ea44f 0%, #22863a 100%);
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+    .header h1 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .header p { font-size: 11px; opacity: 0.9; }
+    .tabs {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid #d0d7de;
+    }
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 500;
+      color: #57606a;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      color: #2ea44f;
+      border-bottom-color: #2ea44f;
+    }
+    .panel { display: none; padding: 16px; }
+    .panel.active { display: block; }
+    
+    .site-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .site-btn {
+      padding: 12px;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .site-btn:hover { border-color: #2ea44f; background: #f6f8fa; }
+    .site-btn.active {
+      border-color: #2ea44f;
+      background: #2ea44f;
+      color: white;
+    }
+    .site-btn .name { font-weight: 600; font-size: 12px; }
+    .site-btn .url { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+    
+    .filters {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .filter-row:last-child { margin-bottom: 0; }
+    .filter-row label {
+      flex: 0 0 70px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #57606a;
+      padding-top: 6px;
+    }
+    .filter-row input, .filter-row select {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1px solid #d0d7de;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .btn-primary {
+      background: #2ea44f;
+      color: white;
+    }
+    .btn-primary:hover { background: #22863a; }
+    .btn-primary:disabled {
+      background: #94d3a2;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      color: #24292f;
+    }
+    .btn-secondary:hover { background: #eaeef2; }
+    
+    .status {
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+    .status.info { background: #ddf4ff; color: #0969da; }
+    .status.success { background: #dafbe1; color: #1a7f37; }
+    .status.error { background: #ffebe9; color: #cf222e; }
+    .status.warn { background: #fff8c5; color: #7d4e00; }
+    
+    .results { margin-top: 12px; }
+    .result-count {
+      font-size: 12px;
+      color: #57606a;
+      margin-bottom: 8px;
+    }
+    .result-list {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .result-item {
+      padding: 10px;
+      border-bottom: 1px solid #eaeef2;
+      font-size: 11px;
+    }
+    .result-item:last-child { border-bottom: none; }
+    .result-item .price { font-weight: 600; color: #2ea44f; }
+    .result-item .location { color: #57606a; }
+    .result-item .details { color: #8c959f; margin-top: 2px; }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .stat-box {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    .stat-box .number {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2ea44f;
+    }
+    .stat-box .label {
+      font-size: 10px;
+      color: #57606a;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌲 Land Scraper</h1>
+    <p>Extract land listings to CSV</p>
+  </div>
+  
+  <div class="tabs">
+    <div class="tab active" data-tab="scrape">Scrape</div>
+    <div class="tab" data-tab="results">Results</div>
+    <div class="tab" data-tab="settings">Settings</div>
+  </div>
+  
+  <div id="tab-scrape" class="panel active">
+    <div class="site-grid" id="siteGrid"></div>
+    
+    <div class="filters">
+      <div class="filter-row">
+        <label>State</label>
+        <select id="stateFilter">
+          <option value="">All States</option>
+          <option value="CA">California</option>
+          <option value="OR">Oregon</option>
+          <option value="CO">Colorado</option>
+          <option value="TX">Texas</option>
+          <option value="AZ">Arizona</option>
+          <option value="FL">Florida</option>
+          <option value="WA">Washington</option>
+        </select>
+      </div>
+      <div class="filter-row">
+        <label>Min Acres</label>
+        <input type="number" id="minAcres" placeholder="e.g. 5">
+      </div>
+      <div class="filter-row">
+        <label>Max Price</label>
+        <input type="number" id="maxPrice" placeholder="e.g. 100000">
+      </div>
+    </div>
+    
+    <div id="status" class="status info" style="display:none"></div>
+    
+    <button class="btn btn-primary" id="btnOpenSite" disabled>Open Site</button>
+    <button class="btn btn-secondary" id="btnScrape" disabled>Scrape This Page</button>
+    <button class="btn btn-secondary" id="btnAutoScrape" disabled>Auto-Scrape All Pages</button>
+  </div>
+  
+  <div id="tab-results" class="panel">
+    <div class="stats">
+      <div class="stat-box">
+        <div class="number" id="statTotal">0</div>
+        <div class="label">Total</div>
+      </div>
+      <div class="stat-box">
+        <div class="number" id="statSites">0</div>
+        <div class="label">Sites</div>
+      </div>
+      <div class="stat-box">
+        <div class="number" id="statAvgPrice">$0</div>
+        <div class="label">Avg Price</div>
+      </div>
+    </div>
+    
+    <div class="result-count" id="resultCount">No results yet</div>
+    <div class="result-list" id="resultList"></div>
+    
+    <button class="btn btn-primary" id="btnDownload">Download CSV</button>
+    <button class="btn btn-secondary" id="btnClear">Clear All</button>
+  </div>
+  
+  <div id="tab-settings" class="panel">
+    <div class="filters">
+      <div class="filter-row">
+        <label>Delay (ms)</label>
+        <input type="number" id="scrapeDelay" value="2000" min="500" max="10000">
+      </div>
+      <div class="filter-row">
+        <label>Max Pages</label>
+        <input type="number" id="maxPages" value="10" min="1" max="50">
+      </div>
+    </div>
+    
+    <div class="status info">
+      Sites supported: LandWatch, Lands of America, Zillow, Realtor.com, Land and Farm, Craigslist
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

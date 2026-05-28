@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BingeGuide — Track, Schedule & Discover TV Shows</title>
+    <meta name="description" content="Discover trending shows on Netflix, Disney+, Hulu, Max & Prime Video. Build your watchlist, track episodes, and schedule your viewing.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #6366f1;
+            --color-primary-dark: #4f46e5;
+            --color-secondary: #ec4899;
+            --color-accent: #f59e0b;
+            --color-success: #22c55e;
+            --color-bg: #0f172a;
+            --color-bg-light: #1e293b;
+            --color-bg-card: #334155;
+            --color-text: #f8fafc;
+            --color-text-muted: #94a3b8;
+            --color-border: #475569;
+            --radius: 12px;
+            --shadow: 0 10px 40px rgba(0,0,0,0.3);
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--color-text); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-link { color: var(--color-text-muted); text-decoration: none; font-weight: 500; transition: var(--transition); cursor: pointer; }
+        .nav-link:hover, .nav-link.active { color: var(--color-primary); }
+        .nav-btn {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white; padding: 0.6rem 1.5rem; border-radius: var(--radius);
+            font-weight: 600; cursor: pointer; border: none; transition: var(--transition);
+        }
+        .hero {
+            text-align: center; padding: 4rem 2rem;
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-light) 100%);
+        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; color: var(--color-text-muted); margin-bottom: 2rem; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 2rem; font-weight: 700; color: var(--color-primary); }
+        .how-it-works { padding: 4rem 2rem; background: var(--color-bg-light); }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-tag {
+            display: inline-block; background: rgba(99, 102, 241, 0.2); color: var(--color-primary);
+            padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .step-card {
+            background: var(--color-bg-card); padding: 2rem; border-radius: var(--radius);
+            text-align: center; transition: var(--transition); border: 1px solid var(--color-border);
+        }
+        .step-number {
+            width: 50px; height: 50px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 700; margin: 0 auto 1rem;
+        }
+        .shows-section { padding: 4rem 2rem; }
+        .platform-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+        .platform-tab {
+            padding: 0.75rem 1.5rem; background: var(--color-bg-card); border: 1px solid var(--color-border);
+            border-radius: var(--radius); color: var(--color-text-muted); font-weight: 500; cursor: pointer;
+        }
+        .platform-tab.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+        .platform-tab.netflix.active { background: #e50914; border-color: #e50914; }
+        .platform-tab.disney.active { background: #113ccf; border-color: #113ccf; }
+        .platform-tab.hulu.active { background: #1ce783; color: #000; border-color: #1ce783; }
+        .platform-tab.max.active { background: #002be7; border-color: #002be7; }
+        .platform-tab.prime.active { background: #00a8e1; border-color: #00a8e1; }
+        .shows-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .show-card {
+            background: var(--color-bg-card); border-radius: var(--radius); overflow: hidden;
+            transition: var(--transition); border: 1px solid var(--color-border); cursor: pointer;
+        }
+        .show-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: var(--color-primary); }
+        .show-poster {
+            width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, var(--color-bg-light), var(--color-bg-card));
+            display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative;
+        }
+        .show-rank { position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; background: rgba(0,0,0,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
+        .show-trending { position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, var(--color-accent), #f97316); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .show-info { padding: 1.25rem; }
+        .show-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .show-meta { display: flex; gap: 1rem; color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .show-actions { display: flex; gap: 0.5rem; }
+        .show-btn { flex: 1; padding: 0.6rem; border-radius: 8px; border: none; font-weight: 500; cursor: pointer; font-size: 0.875rem; }
+        .show-btn-primary { background: var(--color-primary); color: white; }
+        .show-btn-secondary { background: var(--color-bg-light); color: var(--color-text); border: 1px solid var(--color-border); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 2rem; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--color-bg-light); border-radius: var(--radius); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--color-border); }
+        .modal-header { padding: 1.5rem; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; }
+        .modal-close { background: none; border: none; color: var(--color-text-muted); font-size: 1.5rem; cursor: pointer; }
+        .modal-body { padding: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-input, .form-select { width: 100%; padding: 0.75rem 1rem; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); }
+        .watchlist-section { padding: 4rem 2rem; background: var(--color-bg-light); }
+        .watchlist-empty { text-align: center; padding: 3rem; color: var(--color-text-muted); }
+        .watchlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .watchlist-item { background: var(--color-bg-card); padding: 1rem; border-radius: var(--radius); border: 1px solid var(--color-border); display: flex; gap: 1rem; align-items: center; }
+        .watchlist-poster { width: 60px; height: 60px; background: var(--color-bg-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .watchlist-progress { margin-top: 0.5rem; background: var(--color-bg-light); height: 6px; border-radius: 3px; overflow: hidden; }
+        .watchlist-progress-bar { height: 100%; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); }
+        .footer { padding: 3rem 2rem; border-top: 1px solid var(--color-border); text-align: center; color: var(--color-text-muted); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">📺 BingeGuide</a>
+            <div class="nav-links">
+                <span class="nav-link" onclick="scrollToSection('discover')">Discover</span>
+                <span class="nav-link" onclick="scrollToSection('watchlist')">My Watchlist</span>
+                <span class="nav-link" onclick="scrollToSection('how-it-works')">How It Works</span>
+            </div>
+            <button class="nav-btn" onclick="scrollToSection('discover')">Find Shows</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Never Miss an Episode Again</h1>
+            <p>Discover trending shows across all platforms, build your personal watchlist, and schedule your viewing time.</p>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="hero-stat-value">50+</div><div>Trending Shows</div></div>
+                <div class="hero-stat"><div class="hero-stat-value">5</div><div>Platforms</div></div>
+                <div class="hero-stat"><div class="hero-stat-value">∞</div><div>Binge Sessions</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Getting Started</span>
+                <h2 class="section-title">How BingeGuide Works</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Browse Trending Shows</h3>
+                    <p>Explore popular shows on Netflix, Disney+, Hulu, Max, and Prime Video.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Click to Schedule</h3>
+                    <p>Click "Schedule" on any show to plan when you'll watch.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Track Your Progress</h3>
+                    <p>Keep tabs on episodes watched and what's up next.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Get Recommendations</h3>
+                    <p>Discover similar shows based on your watchlist.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shows-section" id="discover">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Trending Now</span>
+                <h2 class="section-title">Popular Shows by Platform</h2>
+                <p style="color: var(--color-text-muted);">Click any show to add it to your schedule</p>
+            </div>
+            <div class="platform-tabs">
+                <button class="platform-tab active" data-platform="all">All Platforms</button>
+                <button class="platform-tab netflix" data-platform="netflix">Netflix</button>
+                <button class="platform-tab disney" data-platform="disney">Disney+</button>
+                <button class="platform-tab hulu" data-platform="hulu">Hulu</button>
+                <button class="platform-tab max" data-platform="max">Max</button>
+                <button class="platform-tab prime" data-platform="prime">Prime Video</button>
+            </div>
+            <div class="shows-grid" id="showsGrid"></div>
+        </div>
+    </section>
+
+    <section class="watchlist-section" id="watchlist">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Your Collection</span>
+                <h2 class="section-title">My Watchlist</h2>
+            </div>
+            <div id="watchlistContainer">
+                <div class="watchlist-empty">
+                    <div style="font-size: 4rem;">📭</div>
+                    <p>Your watchlist is empty. Click "Schedule" on any show to start!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Schedule: <span id="modalShowTitle">Show Name</span></h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">How would you like to watch?</label>
+                    <select class="form-select" id="scheduleType">
+                        <option value="binge">Binge Mode - Watch all episodes at once</option>
+                        <option value="weekly">Weekly Release - One episode per week</option>
+                        <option value="custom">Custom Pace - Set your own schedule</option>
+                    </select>
+                </div>
+                <div class="form-group" id="episodesPerWeekGroup" style="display: none;">
+                    <label class="form-label">Episodes per week</label>
+                    <select class="form-select" id="episodesPerWeek">
+                        <option value="1">1 episode/week</option>
+                        <option value="2">2 episodes/week</option>
+                        <option value="3">3 episodes/week</option>
+                        <option value="5">5 episodes/week</option>
+                        <option value="7">7 episodes/week (daily)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Start watching on</label>
+                    <input type="date" class="form-input" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Current progress (optional)</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="number" class="form-input" placeholder="Season" min="1" id="currentSeason" style="flex: 1;">
+                        <input type="number" class="form-input" placeholder="Episode" min="1" id="currentEpisode" style="flex: 1;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <input type="text" class="form-input" placeholder="e.g., 'Watch with Sarah'" id="watchNotes">
+                </div>
+                <button class="show-btn show-btn-primary" style="width: 100%; padding: 1rem;" onclick="addToWatchlist()">Add to Watchlist</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>BingeGuide helps you discover and schedule TV shows across streaming platforms. Data based on public popularity rankings.</p>
+    </footer>
+
+    <script>
+const shows = [
+    // Netflix
+    { id: 'n1', title: 'Squid Game', platform: 'netflix', platformName: 'Netflix', genre: 'Thriller', rating: '8.7', seasons: '2 Seasons', emoji: '🦑', desc: 'Hundreds of cash-strapped players accept a strange invitation to compete in children\'s games.', trending: true },
+    { id: 'n2', title: 'Stranger Things', platform: 'netflix', platformName: 'Netflix', genre: 'Sci-Fi', rating: '8.7', seasons: '4 Seasons', emoji: '👽', desc: 'When a young boy disappears, his mother and friends must confront terrifying supernatural forces.', trending: true },
+    { id: 'n3', title: 'Wednesday', platform: 'netflix', platformName: 'Netflix', genre: 'Horror/Comedy', rating: '8.1', seasons: '1 Season', emoji: '⚫', desc: 'Wednesday Addams is sent to Nevermore Academy, where she attempts to master her psychic ability.', trending: false },
+    { id: 'n4', title: 'The Witcher', platform: 'netflix', platformName: 'Netflix', genre: 'Fantasy', rating: '8.0', seasons: '3 Seasons', emoji: '⚔️', desc: 'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world of wicked people.', trending: false },
+    { id: 'n5', title: 'You', platform: 'netflix', platformName: 'Netflix', genre: 'Psychological Thriller', rating: '7.7', seasons: '4 Seasons', emoji: '🔪', desc: 'A dangerously charming young man goes to extreme measures to insert himself into others\' lives.', trending: true },
+    { id: 'n6', title: 'The Diplomat', platform: 'netflix', platformName: 'Netflix', genre: 'Political Drama', rating: '8.0', seasons: '2 Seasons', emoji: '🌍', desc: 'In the midst of an international crisis, a career diplomat lands in a high-profile job.', trending: true },
+    { id: 'n7', title: 'Adolescence', platform: 'netflix', platformName: 'Netflix', genre: 'Crime Drama', rating: '8.5', seasons: 'Miniseries', emoji: '🔍', desc: 'A 13-year-old boy is accused of murdering a classmate, forcing his family to confront the truth.', trending: true },
+    { id: 'n8', title: 'Black Mirror', platform: 'netflix', platformName: 'Netflix', genre: 'Sci-Fi Anthology', rating: '8.7', seasons: '7 Seasons', emoji: '📱', desc: 'An anthology series exploring a twisted, high-tech multiverse.', trending: true },
+    
+    // Disney+
+    { id: 'd1', title: 'The Bear', platform: 'disney', platformName: 'Disney+', genre: 'Drama', rating: '8.8', seasons: '4 Seasons', emoji: '🐻', desc: 'A young chef from the fine dining world returns to Chicago to run his family sandwich shop.', trending: true },
+    { id: 'd2', title: 'Shogun', platform: 'disney', platformName: 'Disney+', genre: 'Historical Drama', rating: '9.0', seasons: '1 Season', emoji: '⛩️', desc: 'When a mysterious European ship is found marooned, its English pilot navigates a treacherous political landscape.', trending: true },
+    { id: 'd3', title: 'Bluey', platform: 'disney', platformName: 'Disney+', genre: 'Family/Animation', rating: '9.4', seasons: '3 Seasons', emoji: '🔵', desc: 'The adventures of a Blue Heeler puppy who lives with her mum, dad, and sister.', trending: true },
+    { id: 'd4', title: 'The Mandalorian', platform: 'disney', platformName: 'Disney+', genre: 'Sci-Fi', rating: '8.6', seasons: '3 Seasons', emoji: '🚀', desc: 'The travels of a lone bounty hunter in the outer reaches of the galaxy.', trending: false },
+    { id: 'd5', title: 'Only Murders in the Building', platform: 'disney', platformName: 'Disney+', genre: 'Comedy/Mystery', rating: '8.1', seasons: '4 Seasons', emoji: '🏢', desc: 'Three strangers share an obsession with true crime and suddenly find themselves wrapped up in one.', trending: true },
+    { id: 'd6', title: 'Ahsoka', platform: 'disney', platformName: 'Disney+', genre: 'Sci-Fi', rating: '7.6', seasons: '1 Season', emoji: '🗡️', desc: 'Former Jedi Knight Ahsoka Tano investigates an emerging threat to a vulnerable galaxy.', trending: false },
+    { id: 'd7', title: 'The Old Man', platform: 'disney', platformName: 'Disney+', genre: 'Action Thriller', rating: '7.7', seasons: '2 Seasons', emoji: '👴', desc: 'A former intelligence officer living off the grid finds himself on the run.', trending: false },
+    { id: 'd8', title: 'What If...?', platform: 'disney', platformName: 'Disney+', genre: 'Animation', rating: '7.4', seasons: '2 Seasons', emoji: '❓', desc: 'Exploring pivotal moments from the Marvel Cinematic Universe.', trending: false },
+    
+    // Hulu
+    { id: 'h1', title: 'The Handmaid\'s Tale', platform: 'hulu', platformName: 'Hulu', genre: 'Dystopian Drama', rating: '8.4', seasons: '6 Seasons', emoji: '🟥', desc: 'Set in a dystopian future, a woman is forced to live as a concubine under a theocratic dictatorship.', trending: true },
+    { id: 'h2', title: 'Paradise', platform: 'hulu', platformName: 'Hulu', genre: 'Thriller', rating: '7.9', seasons: '1 Season', emoji: '🏝️', desc: 'A former secret service agent is assigned to protect the president in a mysterious underground bunker.', trending: true },
+    { id: 'h3', title: 'What We Do in the Shadows', platform: 'hulu', platformName: 'Hulu', genre: 'Comedy/Horror', rating: '8.6', seasons: '6 Seasons', emoji: '🧛', desc: 'A look into the nightly lives of four vampires who have lived together for over 100 years.', trending: false },
+    { id: 'h4', title: 'Abbott Elementary', platform: 'hulu', platformName: 'Hulu', genre: 'Comedy', rating: '8.2', seasons: '4 Seasons', emoji: '🏫', desc: 'A group of dedicated teachers work in a Philadelphia public school.', trending: true },
+    { id: 'h5', title: 'Sunny', platform: 'hulu', platformName: 'Hulu', genre: 'Mystery/Comedy', rating: '7.5', seasons: '1 Season', emoji: '🤖', desc: 'A woman living in Kyoto forms an unlikely friendship with a domestic robot.', trending: true },
+    { id: 'h6', title: 'The Old Man', platform: 'hulu', platformName: 'Hulu', genre: 'Action Thriller', rating: '7.7', seasons: '2 Seasons', emoji: '🔫', desc: 'A former intelligence officer on the run from people who want to kill him.', trending: false },
+    { id: 'h7', title: 'Shogun', platform: 'hulu', platformName: 'Hulu', genre: 'Historical', rating: '9.0', seasons: '1 Season', emoji: '🌸', desc: 'An English pilot washes ashore in 17th century Japan.', trending: true },
+    { id: 'h8', title: 'The Bear', platform: 'hulu', platformName: 'Hulu', genre: 'Drama', rating: '8.8', seasons: '4 Seasons', emoji: '🍽️', desc: 'A young chef returns to Chicago to run his family sandwich shop.', trending: true },
+    
+    // Max
+    { id: 'm1', title: 'The Last of Us', platform: 'max', platformName: 'Max', genre: 'Drama/Horror', rating: '8.7', seasons: '2 Seasons', emoji: '🌿', desc: 'Twenty years after civilization has been destroyed, Joel is hired to smuggle Ellie out of a quarantine zone.', trending: true },
+    { id: 'm2', title: 'House of the Dragon', platform: 'max', platformName: 'Max', genre: 'Fantasy', rating: '8.4', seasons: '2 Seasons', emoji: '🐉', desc: 'The story of the Targaryen civil war 200 years before Game of Thrones.', trending: true },
+    { id: 'm3', title: 'The White Lotus', platform: 'max', platformName: 'Max', genre: 'Comedy/Drama', rating: '8.0', seasons: '3 Seasons', emoji: '🌺', desc: 'The exploits of various guests and employees of a fictional resort chain.', trending: true },
+    { id: 'm4', title: 'Succession', platform: 'max', platformName: 'Max', genre: 'Drama', rating: '8.9', seasons: '4 Seasons', emoji: '👑', desc: 'The Roy family controls the biggest media and entertainment company in the world.', trending: true },
+    { id: 'm5', title: 'The Sopranos', platform: 'max', platformName: 'Max', genre: 'Crime Drama', rating: '9.2', seasons: '6 Seasons', emoji: '🚬', desc: 'New Jersey mob boss Tony Soprano deals with personal and professional issues.', trending: false },
+    { id: 'm6', title: 'Euphoria', platform: 'max', platformName: 'Max', genre: 'Teen Drama', rating: '8.3', seasons: '2 Seasons', emoji: '💊', desc: 'A look at life for a group of high school students as they grapple with love and drugs.', trending: true },
+    { id: 'm7', title: 'True Detective', platform: 'max', platformName: 'Max', genre: 'Crime Anthology', rating: '8.9', seasons: '4 Seasons', emoji: '🕵️', desc: 'Seasonal anthology series in which police investigations unearth personal and professional secrets.', trending: true },
+    { id: 'm8', title: 'Curb Your Enthusiasm', platform: 'max', platformName: 'Max', genre: 'Comedy', rating: '8.8', seasons: '12 Seasons', emoji: '😤', desc: 'The life and times of Larry David and the predicaments he gets himself into.', trending: false },
+    
+    // Prime Video
+    { id: 'p1', title: 'The Boys', platform: 'prime', platformName: 'Prime Video', genre: 'Superhero/Drama', rating: '8.7', seasons: '5 Seasons', emoji: '🦸', desc: 'A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers.', trending: true },
+    { id: 'p2', title: 'Reacher', platform: 'prime', platformName: 'Prime Video', genre: 'Action', rating: '8.1', seasons: '3 Seasons', emoji: '👊', desc: 'Jack Reacher, a veteran military police investigator, takes on corruption and crime.', trending: true },
+    { id: 'p3', title: 'The Rings of Power', platform: 'prime', platformName: 'Prime Video', genre: 'Fantasy', rating: '7.0', seasons: '2 Seasons', emoji: '💍', desc: 'Epic drama set thousands of years before the events of J.R.R. Tolkien\'s The Hobbit.', trending: true },
+    { id: 'p4', title: 'Fallout', platform: 'prime', platformName: 'Prime Video', genre: 'Sci-Fi', rating: '8.4', seasons: '1 Season', emoji: '☢️', desc: 'In a future, post-apocalyptic Los Angeles brought about by nuclear decimation.', trending: true },
+    { id: 'p5', title: 'Fleabag', platform: 'prime', platformName: 'Prime Video', genre: 'Comedy/Drama', rating: '8.7', seasons: '2 Seasons', emoji: '🦊', desc: 'A comedy series adapted from the award-winning play about a young woman trying to cope with life.', trending: true },
+    { id: 'p6', title: 'The Marvelous Mrs. Maisel', platform: 'prime', platformName: 'Prime Video', genre: 'Comedy/Drama', rating: '8.7', seasons: '5 Seasons', emoji: '🎤', desc: 'A housewife in the 1950s decides to become a stand-up comic.', trending: false },
+    { id: 'p7', title: 'Bosch', platform: 'prime', platformName: 'Prime Video', genre: 'Crime Drama', rating: '8.5', seasons: '7 Seasons', emoji: '🔍', desc: 'An L.A.P.D. homicide detective works to solve the murder of a 13-year-old boy.', trending: false },
+    { id: 'p8', title: 'Jack Ryan', platform: 'prime', platformName: 'Prime Video', genre: 'Action/Thriller', rating: '8.0', seasons: '4 Seasons', emoji: '🕵️', desc: 'Up-and-coming CIA analyst Jack Ryan is thrust into a dangerous field assignment.', trending: false }
+];
+
+let watchlist = JSON.parse(localStorage.getItem('bingeguide_watchlist') || '[]');
+let currentShow = null;
+
+function renderShows(platform = 'all') {
+    const grid = document.getElementById('showsGrid');
+    grid.innerHTML = '';
+    
+    const filtered = platform === 'all' ? shows : shows.filter(s => s.platform === platform);
+    
+    filtered.forEach((show, index) => {
+        const card = document.createElement('div');
+        card.className = 'show-card fade-in';
+        card.style.animationDelay = `${index * 0.05}s`;
+        card.innerHTML = `
+            <div class="show-poster">
+                <span style="font-size: 4rem;">${show.emoji}</span>
+                <div class="show-rank">${index + 1}</div>
+                ${show.trending ? '<div class="show-trending">🔥 Trending</div>' : ''}
+            </div>
+            <div class="show-info">
+                <div class="show-title">${show.title}</div>
+                <div class="show-meta">
+                    <span>⭐ ${show.rating}</span>
+                    <span>•</span>
+                    <span>${show.seasons}</span>
+                </div>
+                <div style="color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+                    ${show.platformName} • ${show.genre}
+                </div>
+                <div style="color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 1rem; line-height: 1.5;">
+                    ${show.desc}
+                </div>
+                <div class="show-actions">
+                    <button class="show-btn show-btn-primary" onclick="openScheduleModal('${show.id}')">Schedule</button>
+                    <button class="show-btn show-btn-secondary" onclick="addToWatchlistQuick('${show.id}')">+ Watchlist</button>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function openScheduleModal(showId) {
+    currentShow = shows.find(s => s.id === showId);
+    document.getElementById('modalShowTitle').textContent = currentShow.title;
+    document.getElementById('scheduleModal').classList.add('active');
+    document.getElementById('startDate').valueAsDate = new Date();
+}
+
+function closeModal() {
+    document.getElementById('scheduleModal').classList.remove('active');
+    currentShow = null;
+}
+
+function addToWatchlist() {
+    if (!currentShow) return;
+    
+    const scheduleType = document.getElementById('scheduleType').value;
+    const episodesPerWeek = document.getElementById('episodesPerWeek').value;
+    const startDate = document.getElementById('startDate').value;
+    const season = document.getElementById('currentSeason').value;
+    const episode = document.getElementById('currentEpisode').value;
+    const notes = document.getElementById('watchNotes').value;
+    
+    const watchlistItem = {
+        ...currentShow,
+        scheduleType,
+        episodesPerWeek: scheduleType === 'custom' ? episodesPerWeek : null,
+        startDate,
+        currentSeason: season || 1,
+        currentEpisode: episode || 1,
+        notes,
+        addedAt: new Date().toISOString()
+    };
+    
+    watchlist.push(watchlistItem);
+    localStorage.setItem('bingeguide_watchlist', JSON.stringify(watchlist));
+    
+    renderWatchlist();
+    closeModal();
+    scrollToSection('watchlist');
+}
+
+function addToWatchlistQuick(showId) {
+    const show = shows.find(s => s.id === showId);
+    watchlist.push({
+        ...show,
+        scheduleType: 'binge',
+        startDate: new Date().toISOString().split('T')[0],
+        currentSeason: 1,
+        currentEpisode: 1,
+        addedAt: new Date().toISOString()
+    });
+    localStorage.setItem('bingeguide_watchlist', JSON.stringify(watchlist));
+    renderWatchlist();
+}
+
+function renderWatchlist() {
+    const container = document.getElementById('watchlistContainer');
+    
+    if (watchlist.length === 0) {
+        container.innerHTML = `
+            <div class="watchlist-empty">
+                <div style="font-size: 4rem;">📭</div>
+                <p>Your watchlist is empty. Click "Schedule" on any show to start!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = '<div class="watchlist-grid" id="watchlistGrid"></div>';
+    const grid = document.getElementById('watchlistGrid');
+    
+    watchlist.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'watchlist-item';
+        div.innerHTML = `
+            <div class="watchlist-poster">${item.emoji}</div>
+            <div class="watchlist-details">
+                <div class="watchlist-title">${item.title}</div>
+                <div class="watchlist-meta">${item.platformName} • S${item.currentSeason} E${item.currentEpisode}</div>
+                <div class="watchlist-meta">${item.scheduleType === 'binge' ? '🍿 Binge' : item.scheduleType === 'weekly' ? '📺 Weekly' : '⚡ Custom'} • Started ${new Date(item.startDate).toLocaleDateString()}</div>
+                ${item.notes ? `<div style="font-size: 0.75rem; color: var(--color-accent); margin-top: 0.25rem;">📝 ${item.notes}</div>` : ''}
+                <div class="watchlist-progress">
+                    <div class="watchlist-progress-bar" style="width: ${Math.min(100, (item.currentEpisode / 10) * 100)}%"></div>
+                </div>
+            </div>
+            <div class="watchlist-actions">
+                <button class="watchlist-btn" onclick="updateProgress(${index})">+</button>
+                <button class="watchlist-btn" onclick="removeFromWatchlist(${index})">🗑️</button>
+            </div>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+function updateProgress(index) {
+    watchlist[index].currentEpisode++;
+    localStorage.setItem('bingeguide_watchlist', JSON.stringify(watchlist));
+    renderWatchlist();
+}
+
+function removeFromWatchlist(index) {
+    watchlist.splice(index, 1);
+    localStorage.setItem('bingeguide_watchlist', JSON.stringify(watchlist));
+    renderWatchlist();
+}
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+document.querySelectorAll('.platform-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderShows(tab.dataset.platform);
+    });
+});
+
+document.getElementById('scheduleType').addEventListener('change', (e) => {
+    document.getElementById('episodesPerWeekGroup').style.display = e.target.value === 'custom' ? 'block' : 'none';
+});
+
+renderShows();
+renderWatchlist();
+    </script>
+</body>
+</html>

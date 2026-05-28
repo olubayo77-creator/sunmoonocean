@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-28T05:07:15.982Z",
+  "entries": {
+    "memory:memory/2026-05-23.md:1:11": {
+      "key": "memory:memory/2026-05-23.md:1:11",
+      "path": "memory/2026-05-23.md",
+      "startLine": 1,
+      "endLine": 11,
+      "source": "memory",
+      "snippet": "- Worked extensively on SunMoonOcean site updates. - Integrated Amazon affiliate links across products using tag `sunmoonocean-20` and direct Amazon links only; removed cart-based Amazon flow. - Linked Netlify to GitHub repo after user action; subsequent pushes auto-deploy. - Trimmed store to only approved affiliate products, then added multiple direct-affiliate products per user request. - Removed standalone Amazon spotlight section. - Added father-daughter mission messaging across site: updated hero, Dad + Daughter Picks section, product badges, about copy, and footer tagline. - Cleaned up duplicated Dad + Daughter badges and restored Amazon button styling. - Improved blue text readability",
+      "recallCount": 11,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 6.951376967832553,
+      "maxScore": 0.6319435809027878,
+      "firstRecalledAt": "2026-05-23T14:57:27.711Z",
+      "lastRecalledAt": "2026-05-28T05:07:15.982Z",
+      "queryHashes": [
+        "65fe880e9d09",
+        "785aa99b817b",
+        "d37966e2a0be",
+        "e7e9ac23ac48",
+        "3c8c2adb85f3",
+        "5747dd62f04c",
+        "39ea75199811",
+        "56f82267c613",
+        "1e03d3fee37e",
+        "db7abe2f3ea4",
+        "4865e5c56d7b"
+      ],
+      "recallDays": [
+        "2026-05-23",
+        "2026-05-25",
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "sunmoonocean-20",
+        "cart-based",
+        "auto-deploy",
+        "direct-affiliate",
+        "father-daughter",
+        "worked",
+        "extensively",
+        "sunmoonocean"
+      ]
+    },
+    "memory:memory/2026-05-28.md:1:23": {
+      "key": "memory:memory/2026-05-28.md:1:23",
+      "path": "memory/2026-05-28.md",
+      "startLine": 1,
+      "endLine": 23,
+      "source": "memory",
+      "snippet": "# 2026-05-28 — Thursday ## Current Active Work ### Main Session (agent:main:main) **Started:** 04:52 UTC **Task:** Troubleshooting 7 failed cron jobs **Status:** In progress **Context:** - PACER Chapter 13 scraper failing (15 consecutive errors) - Delivery config issue: no channel configured for announcements - ~~Also missing Python dependencies for scraper~~ - **UPDATE:** Claude provided Chrome extension (`pacer-extractor/`) — not a Python script - Extension extracts Chapter 13 discharged homeowners from CA/OR/CO PACER courts - User wants to keep jobs separate — created PROTOCOLS.md ## Decisions - Created PROTOCOLS.md for job isolation going forward - User will ask Claude for seco",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6322741598288146,
+      "maxScore": 0.6322741598288146,
+      "firstRecalledAt": "2026-05-28T04:59:33.137Z",
+      "lastRecalledAt": "2026-05-28T04:59:33.137Z",
+      "queryHashes": [
+        "6f34b3606132"
+      ],
+      "recallDays": [
+        "2026-05-28"
+      ],
+      "conceptTags": [
+        "pacer-extractor",
+        "ca/or/co",
+        "protocols.md",
+        "thursday",
+        "current",
+        "active",
+        "agent:main:main",
+        "started"
+      ]
+    }
+  }
+}
