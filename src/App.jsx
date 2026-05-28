@@ -27,25 +27,58 @@ function App() {
   }, [path])
 
   useEffect(() => {
+    const ensureMeta = (selector, attrs) => {
+      let el = document.querySelector(selector)
+      if (!el) {
+        el = document.createElement('meta')
+        Object.entries(attrs.base || {}).forEach(([k, v]) => el.setAttribute(k, v))
+        document.head.appendChild(el)
+      }
+      Object.entries(attrs.set || {}).forEach(([k, v]) => el.setAttribute(k, v))
+      return el
+    }
+
+    const ensureLink = (selector, rel, href) => {
+      let el = document.querySelector(selector)
+      if (!el) {
+        el = document.createElement('link')
+        el.setAttribute('rel', rel)
+        document.head.appendChild(el)
+      }
+      el.setAttribute('href', href)
+      return el
+    }
+
+    const setShared = (title, description, url) => {
+      document.title = title
+      ensureMeta('meta[name="description"]', { base: { name: 'description' }, set: { content: description } })
+      ensureMeta('meta[property="og:title"]', { base: { property: 'og:title' }, set: { content: title } })
+      ensureMeta('meta[property="og:description"]', { base: { property: 'og:description' }, set: { content: description } })
+      ensureMeta('meta[property="og:url"]', { base: { property: 'og:url' }, set: { content: url } })
+      ensureMeta('meta[name="twitter:title"]', { base: { name: 'twitter:title' }, set: { content: title } })
+      ensureMeta('meta[name="twitter:description"]', { base: { name: 'twitter:description' }, set: { content: description } })
+      ensureLink('link[rel="canonical"]', 'canonical', url)
+    }
+
     if (currentPost) {
-      document.title = currentPost.metaTitle
-      const desc = document.querySelector('meta[name="description"]') || document.createElement('meta')
-      desc.setAttribute('name', 'description')
-      desc.setAttribute('content', currentPost.metaDescription)
-      if (!desc.parentNode) document.head.appendChild(desc)
+      setShared(currentPost.metaTitle, currentPost.metaDescription, `https://sunmoonocean.com/blog/${currentPost.slug}`)
       return
     }
 
     if (path === '/blog') {
-      document.title = 'Dad Blog | SunMoonOcean'
-      const desc = document.querySelector('meta[name="description"]') || document.createElement('meta')
-      desc.setAttribute('name', 'description')
-      desc.setAttribute('content', 'Dad Blog from SunMoonOcean with dad and daughter activities, gift ideas, and best toys for dads and daughters.')
-      if (!desc.parentNode) document.head.appendChild(desc)
+      setShared(
+        'Dad Blog | SunMoonOcean',
+        'Dad Blog from SunMoonOcean with dad and daughter activities, gift ideas, and best toys for dads and daughters.',
+        'https://sunmoonocean.com/blog'
+      )
       return
     }
 
-    document.title = 'SunMoonOcean | Where Play Goes Viral'
+    setShared(
+      'SunMoonOcean | Dad and Daughter Activities, Toy Picks & Gift Ideas',
+      'SunMoonOcean shares dad and daughter activities, best toys for dads and daughters, and thoughtful gifts for daughters from dad with direct Amazon affiliate links.',
+      'https://sunmoonocean.com/'
+    )
   }, [path, currentPost])
 
   const BlogNav = () => (
