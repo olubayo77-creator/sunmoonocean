@@ -627,3 +627,27 @@ section {
     padding: 1.2rem;
   }
 }
+
+.founder-story {
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+  padding: 1.25rem 1.35rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.related-section,
+.blog-list-section,
+.dad-strong-section,
+#blog-preview {
+  margin-top: 0.5rem;
+}
+
+.related-title {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  color: var(--navy);
+}
+
+.dad-strong-section .section-tag {
+  color: #8a3ffc;
+}

@@ -1,6 +1,7 @@
 export const blogPosts = [
   {
     slug: '5-things-i-learned-flying-rc-planes-with-my-daughter',
+    category: 'Dad Blog',
     title: '5 things I learned flying RC planes with my daughter',
     date: 'May 28, 2026',
     preview: 'A dad’s honest take on crash landings, backyard victories, and how an RC plane turned into our favorite Saturday tradition.',
@@ -35,6 +36,7 @@ As an Amazon Associate I earn from qualifying purchases.
   },
   {
     slug: 'why-i-stopped-buying-expensive-toys',
+    category: 'Dad Blog',
     title: 'Why I stopped buying expensive toys',
     date: 'May 28, 2026',
     preview: 'The moment a sticker maker beat every expensive gift in the room — and what it taught me about what kids actually love.',
@@ -68,6 +70,7 @@ As an Amazon Associate I earn from qualifying purchases.
   },
   {
     slug: 'the-20-minute-rule-that-changed-my-relationship-with-my-daughter',
+    category: 'Dad Blog',
     title: 'The 20-minute rule that changed my relationship with my daughter',
     date: 'May 28, 2026',
     preview: 'How 20 minutes of undistracted play each day changed the tone of our relationship — and the toys that helped the most.',
@@ -100,6 +103,96 @@ A few toys stood out as especially good for this kind of focused play. The <a hr
 If you’re looking for dad and daughter activities that actually fit real life, I’d start there: not with a perfect schedule, just with twenty intentional minutes.
 
 That small rule changed more than I expected.
+
+As an Amazon Associate I earn from qualifying purchases.
+`
+  },
+  {
+    slug: 'when-every-visit-has-to-count-how-i-learned-to-make-moments-matter',
+    category: 'Dad Strong',
+    title: 'When every visit has to count — how I learned to make moments matter',
+    date: 'May 28, 2026',
+    preview: 'Limited custody changed how I thought about time. Here’s how I learned to make small windows feel meaningful again.',
+    metaTitle: 'Limited custody dad tips: how to bond with daughter after divorce when every visit has to count',
+    metaDescription: 'A warm, honest post about parental alienation recovery for dads, limited custody tips, and dad daughter bonding activities that make moments count.',
+    content: `
+There was a season when I stopped measuring time in weeks and started measuring it in visits.
+
+That changes you.
+
+When you do not get everyday access, every hour matters more. You feel the pressure to make it magical, meaningful, unforgettable. At first, that pressure made me stiff. I was trying so hard to create the perfect visit that I was missing the actual person in front of me.
+
+What helped me most was learning to shift from <em>perfect</em> to <em>present</em>.
+
+I stopped asking, “How do I make this amazing?” and started asking, “How do I really show up?”
+
+Sometimes that meant going outside with the <a href="https://www.amazon.com/MSKOLER-Remote-Control-Airplane-Colorful/dp/B0F4XKJS8G?tag=sunmoonocean-20" target="_blank" rel="noopener noreferrer">MSKOLER Foam Remote Control Airplane</a> and letting the laughter do the work. Sometimes it meant sitting at a table with the <a href="https://www.amazon.com/dp/B0G3XGR2G6?&linkCode=ll2&tag=sunmoonocean-20&linkId=4dbbcb2c31e5710472358591d2cd1048&language=en_US&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">Stickerbox Voice Powered Mini Sticker Maker</a> and making silly little things that gave us something to talk about. Sometimes it just meant letting her lead.
+
+If you’re dealing with limited custody or parental alienation recovery as a dad, here’s what I’d say: do not waste precious time trying to impress your daughter. Use it to know her.
+
+Ask questions. Follow her ideas. Let the toy become a bridge, not the whole plan.
+
+The visits that mattered most in my life were not always big. They were the ones where she felt safe, seen, and fully mine for that moment.
+
+Your next step is simple: choose one activity that invites conversation and play, and give it your full attention the next time you’re together. That counts more than you think.
+
+As an Amazon Associate I earn from qualifying purchases.
+`
+  },
+  {
+    slug: 'recovering-from-narcissistic-abuse-as-a-dad-and-why-my-daughter-saved-me',
+    category: 'Dad Strong',
+    title: 'Recovering from narcissistic abuse as a dad — and why my daughter saved me',
+    date: 'May 28, 2026',
+    preview: 'What recovery looked like for me as a dad, and how being there for my daughter became the anchor that pulled me forward.',
+    metaTitle: 'Dad healing after narcissistic abuse: recovering as a father and rebuilding with your daughter',
+    metaDescription: 'A first-person post about dad healing after narcissistic abuse, hope after parental alienation, and rebuilding through father-daughter connection.',
+    content: `
+Recovery did not happen in a straight line for me.
+
+There was denial, when I kept telling myself things were not that bad. There was anger, when I finally saw how much had been taken from me. There was grief, because it is one thing to lose peace and another thing to lose ordinary time with your child. Then, slowly, there was acceptance. Not approval. Not forgetting. Just the moment when you stop letting the damage write the rest of the story.
+
+Somewhere in that process, I realized I needed an anchor.
+
+For me, that anchor became being the best dad I could still be.
+
+Not a perfect dad. Not a dad who had it all together. Just a dad who refused to let pain be the only thing he carried into the room.
+
+When I felt numb, focused play helped. When I felt angry, movement helped. When I felt like I had nothing left, connection helped. The <a href="https://www.amazon.com/dp/B0D2JGYX3F?tag=sunmoonocean-20" target="_blank" rel="noopener noreferrer">Nex Playground Active Play System</a> gave us a way to laugh and move when words were hard. The <a href="https://www.amazon.com/dp/B0CRHCJDPH?&linkCode=ll2&tag=sunmoonocean-20&linkId=82e81b8755348b69eb2e7b9714d903d3&language=en_US&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">Kiditos Magic Water Elf Toy Kit</a> gave us quieter moments that felt gentle instead of forced.
+
+If you’re in the middle of dad healing after narcissistic abuse, I want to say this plainly: you are not weak because it hurt you. You are not broken because recovery is uneven. And you are not behind because some days all you can do is survive and show up.
+
+My daughter did not heal everything. But loving her well gave me a reason to keep rebuilding.
+
+Your next step: choose one small father-daughter ritual this week and protect it. You do not need a perfect life to create one steady moment of love.
+
+As an Amazon Associate I earn from qualifying purchases.
+`
+  },
+  {
+    slug: 'the-toys-that-helped-me-reconnect-with-my-daughter-after-a-hard-year',
+    category: 'Dad Strong',
+    title: 'The toys that helped me reconnect with my daughter after a hard year',
+    date: 'May 28, 2026',
+    preview: 'A personal story about using play as a bridge back to connection, and the SunMoonOcean toys that became part of our healing ritual.',
+    metaTitle: 'How to bond with daughter after divorce: the toys that helped me reconnect after a hard year',
+    metaDescription: 'A dad shares the toys that helped rebuild connection after a hard year, with practical dad daughter bonding activities and affiliate links.',
+    content: `
+After a hard year, I did not need a grand gesture. I needed a bridge.
+
+That bridge turned out to be play.
+
+There were a few moments early on when I could feel the distance. Not rejection exactly. Just hesitation. The kind that comes when a child has been living through stress too. I knew I could not talk my way around that. I had to create safety, fun, and repetition.
+
+A few toys became part of that healing ritual for us.
+
+The <a href="https://www.amazon.com/MSKOLER-Remote-Control-Airplane-Colorful/dp/B0F4XKJS8G?tag=sunmoonocean-20" target="_blank" rel="noopener noreferrer">MSKOLER Foam Remote Control Airplane</a> gave us a reason to go outside and laugh when things felt heavy. The <a href="https://www.amazon.com/dp/B0G3XGR2G6?&linkCode=ll2&tag=sunmoonocean-20&linkId=4dbbcb2c31e5710472358591d2cd1048&language=en_US&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">Stickerbox Voice Powered Mini Sticker Maker</a> gave us calm table time that felt easy and creative. The <a href="https://www.amazon.com/dp/B0CRHCJDPH?&linkCode=ll2&tag=sunmoonocean-20&linkId=82e81b8755348b69eb2e7b9714d903d3&language=en_US&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">Kiditos Magic Water Elf Toy Kit</a> gave us something gentle to make together when energy was low.
+
+None of these toys fixed everything by themselves. That is not the point. What they did was open the door. They gave us a reason to sit next to each other, move together, create together, and relax enough to let the connection come back naturally.
+
+If you are trying to figure out how to bond with your daughter after divorce, separation, or just a hard stretch of life, start with low-pressure play. Not a lecture. Not a big emotional moment. Just something fun enough to soften the room.
+
+Your next step: pick one toy, one routine, and one consistent time to use it together. Healing often begins with ordinary moments repeated enough times to feel safe again.
 
 As an Amazon Associate I earn from qualifying purchases.
 `

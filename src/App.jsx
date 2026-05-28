@@ -15,6 +15,9 @@ function App() {
 
   const featuredProducts = products
   const dadDaughterPicks = products.filter(p => p.tags?.includes('dad-daughter-pick'))
+  const mainPosts = blogPosts.filter(post => post.category === 'Dad Blog')
+  const dadStrongPosts = blogPosts.filter(post => post.category === 'Dad Strong')
+  const featuredBlogPosts = blogPosts.slice(0, 3)
 
   const formatCurrency = (num) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num)
@@ -25,6 +28,11 @@ function App() {
     const slug = path.replace('/blog/', '')
     return blogPosts.find(post => post.slug === slug) || null
   }, [path])
+
+  const relatedPosts = useMemo(() => {
+    if (!currentPost) return []
+    return blogPosts.filter(post => post.slug !== currentPost.slug).slice(0, 3)
+  }, [currentPost])
 
   useEffect(() => {
     const ensureMeta = (selector, attrs) => {
@@ -49,6 +57,17 @@ function App() {
       return el
     }
 
+    const setJsonLd = (data) => {
+      let script = document.getElementById('seo-jsonld')
+      if (!script) {
+        script = document.createElement('script')
+        script.type = 'application/ld+json'
+        script.id = 'seo-jsonld'
+        document.head.appendChild(script)
+      }
+      script.textContent = JSON.stringify(data)
+    }
+
     const setShared = (title, description, url) => {
       document.title = title
       ensureMeta('meta[name="description"]', { base: { name: 'description' }, set: { content: description } })
@@ -62,15 +81,39 @@ function App() {
 
     if (currentPost) {
       setShared(currentPost.metaTitle, currentPost.metaDescription, `https://sunmoonocean.com/blog/${currentPost.slug}`)
+      setJsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: currentPost.title,
+        datePublished: currentPost.date,
+        dateModified: currentPost.date,
+        description: currentPost.metaDescription,
+        mainEntityOfPage: `https://sunmoonocean.com/blog/${currentPost.slug}`,
+        publisher: {
+          '@type': 'Organization',
+          name: 'SunMoonOcean'
+        },
+        author: {
+          '@type': 'Person',
+          name: 'SunMoonOcean Founder'
+        }
+      })
       return
     }
 
     if (path === '/blog') {
       setShared(
-        'Dad Blog | SunMoonOcean',
-        'Dad Blog from SunMoonOcean with dad and daughter activities, gift ideas, and best toys for dads and daughters.',
+        'Dad Blog & Dad Strong | SunMoonOcean',
+        'Dad Blog and Dad Strong from SunMoonOcean with dad and daughter activities, parental alienation recovery for dads, and best toys for dads and daughters.',
         'https://sunmoonocean.com/blog'
       )
+      setJsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: 'SunMoonOcean Dad Blog',
+        url: 'https://sunmoonocean.com/blog',
+        description: 'Dad Blog and Dad Strong posts for dads building deeper connection with their daughters.'
+      })
       return
     }
 
@@ -79,6 +122,21 @@ function App() {
       'SunMoonOcean shares dad and daughter activities, best toys for dads and daughters, and thoughtful gifts for daughters from dad with direct Amazon affiliate links.',
       'https://sunmoonocean.com/'
     )
+    setJsonLd({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          name: 'SunMoonOcean',
+          url: 'https://sunmoonocean.com/'
+        },
+        {
+          '@type': 'WebSite',
+          name: 'SunMoonOcean',
+          url: 'https://sunmoonocean.com/'
+        }
+      ]
+    })
   }, [path, currentPost])
 
   const BlogNav = () => (
@@ -105,7 +163,7 @@ function App() {
 
         <main className="blog-shell">
           <div className="blog-hero">
-            <div className="section-tag">Dad Blog</div>
+            <div className="section-tag">{currentPost.category}</div>
             <h1 className="blog-post-title">{currentPost.title}</h1>
             <p className="blog-post-date">{currentPost.date}</p>
           </div>
@@ -118,6 +176,23 @@ function App() {
               <a href="/" className="btn-primary blog-link-btn">Shop SunMoonOcean</a>
             </div>
           </article>
+
+          <section className="related-section">
+            <div className="section-header">
+              <div className="section-tag">Keep Reading</div>
+              <h2 className="section-title related-title">Related Posts</h2>
+            </div>
+            <div className="blog-grid">
+              {relatedPosts.map(post => (
+                <article className="blog-card" key={post.slug}>
+                  <div className="blog-card-date">{post.date} · {post.category}</div>
+                  <h3 className="blog-card-title">{post.title}</h3>
+                  <p className="blog-card-preview">{post.preview}</p>
+                  <a href={`/blog/${post.slug}`} className="btn-primary blog-readmore">Read more</a>
+                </article>
+              ))}
+            </div>
+          </section>
         </main>
       </div>
     )
@@ -152,13 +227,40 @@ function App() {
             <p className="section-subtitle blog-page-subtitle">
               Honest stories, toy picks, and simple ideas for dads who want more meaningful time with their daughters.
             </p>
+            <div className="founder-story card-surface">
+              SunMoonOcean was built by a dad who knows what it means to fight for moments with his daughter. After surviving narcissistic abuse and parental alienation, time together became precious. Every product on this site was chosen with one goal — make every moment count. This store is for every dad who refuses to let distance, circumstance, or a broken system define his relationship with his daughter.
+            </div>
           </section>
 
           <section className="blog-list-section">
+            <div className="section-header">
+              <div className="section-tag">Dad Blog</div>
+              <h2 className="related-title">Stories, toy picks, and everyday connection</h2>
+            </div>
             <div className="blog-grid">
-              {blogPosts.map(post => (
+              {mainPosts.map(post => (
                 <article className="blog-card" key={post.slug}>
                   <div className="blog-card-date">{post.date}</div>
+                  <h2 className="blog-card-title">{post.title}</h2>
+                  <p className="blog-card-preview">{post.preview}</p>
+                  <a href={`/blog/${post.slug}`} className="btn-primary blog-readmore">Read more</a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="blog-list-section dad-strong-section">
+            <div className="section-header">
+              <div className="section-tag">Dad Strong</div>
+              <h2 className="related-title">For dads rebuilding, healing, and showing up anyway</h2>
+              <p className="section-subtitle blog-page-subtitle">
+                You're not alone. Whether you're navigating limited custody, healing from a toxic relationship, or just trying to be more present — this space is for you. These posts are written from experience, not theory.
+              </p>
+            </div>
+            <div className="blog-grid">
+              {dadStrongPosts.map(post => (
+                <article className="blog-card" key={post.slug}>
+                  <div className="blog-card-date">{post.date} · Dad Strong</div>
                   <h2 className="blog-card-title">{post.title}</h2>
                   <p className="blog-card-preview">{post.preview}</p>
                   <a href={`/blog/${post.slug}`} className="btn-primary blog-readmore">Read more</a>
@@ -345,6 +447,24 @@ function App() {
         </div>
       </section>
 
+      <section id="blog-preview">
+        <div className="section-header">
+          <div className="section-tag">Dad Blog</div>
+          <h2 className="section-title">Stories that make every moment count</h2>
+          <p className="section-subtitle">Read honest posts about play, connection, healing, and being present with your daughter.</p>
+        </div>
+        <div className="blog-grid">
+          {featuredBlogPosts.map(post => (
+            <article className="blog-card" key={post.slug}>
+              <div className="blog-card-date">{post.date} · {post.category}</div>
+              <h3 className="blog-card-title">{post.title}</h3>
+              <p className="blog-card-preview">{post.preview}</p>
+              <a href={`/blog/${post.slug}`} className="btn-primary blog-readmore">Read more</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section id="about">
         <div className="section-header">
           <div className="section-tag">About</div>
@@ -352,6 +472,7 @@ function App() {
           <p className="section-subtitle">Built around a simple belief: the right toy can create the right moment between a dad and his daughter</p>
         </div>
         <div className="mission-note">SunMoonOcean shares Amazon affiliate toy links with a focus on products that can help dads and daughters spend time playing together.</div>
+        <div className="founder-story card-surface">SunMoonOcean was built by a dad who knows what it means to fight for moments with his daughter. After surviving narcissistic abuse and parental alienation, time together became precious. Every product on this site was chosen with one goal — make every moment count. This store is for every dad who refuses to let distance, circumstance, or a broken system define his relationship with his daughter.</div>
         <div className="why-grid">
           <div className="why-card">
             <div className="why-emoji">🎯</div>
